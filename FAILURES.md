@@ -142,12 +142,37 @@
   2. `uvx --with six kaggle`. A later "connection aborted" was a one-off network drop; the retry worked.
 - **Lesson:** a 429 is not always "slow down". Read the error code before retrying.
 
+## F15. Free GPUs are not guaranteed: five hours in the Kaggle queue
+
+- **What broke:** the Wan 2.2 shot job and the ACE-Step music job were pushed to Kaggle at 16:27 EAT on
+  deadline day. At 21:25 both still reported `KernelWorkerStatus.QUEUED`; neither had started.
+- **Impact:** no Wan clips and no generated score before the deadline.
+- **What held:** the shots stage uses a Wan clip only if one exists for the shot's *current* keyframe
+  and motion prompt; otherwise it renders a Ken Burns camera move locally. The film rendered complete
+  without the GPU. The music script was made to run on Colab too, as a second free GPU source.
+- **Lesson:** a free external dependency needs a fallback path and a deadline of its own. Next time I
+  would push GPU jobs on day one, not on the last afternoon.
+
+## F16. A 6.4 MB run log
+
+- **What broke:** `runs.jsonl` had grown to 6.4 MB from 196 lines. Nine Addis AI experiment rows were
+  ~800 KB each: the reply carries the audio itself as base64, plus a signed playback link, and the
+  logger kept every field except `audio_url`.
+- **Root cause:** a blocklist (drop one known key) where an allowlist was needed. Any new field the
+  provider adds goes straight into the log.
+- **Fix:** `narration.addis_metadata` keeps only named billing and metadata fields, covered by a unit
+  test. The nine existing rows were cleaned with the same function (the audio is already saved under
+  `outputs/experiments/tts_compare/`, and the signed links had expired). The log is now 194 KB.
+
 ## F6. LinkedIn has no AI-label toggle
 
 - **What broke:** the brief asks to post with the platform's AI label switched on. LinkedIn's help page
   describes only automatic Content Credentials (C2PA) detection, no manual toggle.
-- **Fix:** post on YouTube Shorts with "AI use: Yes" switched on, and on LinkedIn with a written
-  disclosure in the first line linking the labelled version (ETHICS.md).
+- **Options considered:** cross-post to YouTube Shorts (has an "AI use" toggle) and link it, or post
+  only on LinkedIn and carry the label in the content.
+- **Decision:** LinkedIn only, with a written "Made with AI" disclosure as the first line of the post
+  and the AI end card burned into the film, so the label survives resharing (ETHICS.md). The missing
+  platform flag is recorded as a known gap.
 
 ## F7. Ten TTS requests a day, twelve narration lines
 

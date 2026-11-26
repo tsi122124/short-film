@@ -3,6 +3,19 @@
 Each entry: hypothesis → change → result, with the evidence (log lines in `runs.jsonl`, files in
 `outputs/`). One thing changes per experiment; seeds and inputs stay fixed where they matter.
 
+## E8. Does the delivered film still meet −14 LUFS / −1 dBTP after video encoding?
+
+- **Hypothesis:** mastering to −1.5 dBTP, not exactly −1, leaves enough headroom for the AAC encoder
+  in the final MP4, which can push peaks up slightly.
+- **Change:** none to the pipeline. I measured the two delivered files themselves, not the WAV master:
+  `ffmpeg -i outputs/film/film_9x16.mp4 -vn -af loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json -f null -`
+  (same for 16:9).
+- **Result:** both files: **−14.07 LUFS integrated, −1.33 dBTP true peak**, LRA 5.3 LU, 81.76 s,
+  H.264 + AAC 48 kHz. AAC raised the peak by 0.17 dB (−1.5 → −1.33). That is still under −1 dBTP, so
+  the headroom was needed and was enough.
+- **Conclusion:** measure the delivered file, not the intermediate. A master set to exactly −1.0 dBTP
+  would have shipped at about −0.8 dBTP, over the limit.
+
 ## E5. Do reference images keep characters consistent across shots?
 
 - **Hypothesis:** attaching approved reference images (FLUX.2 klein `input_image_0..3`) to every keyframe
