@@ -58,3 +58,9 @@ Each entry: hypothesis → change → result, with the evidence (log lines in `r
 - **Result 2:** all three takes split and passed the check: s01–s05 = 5.0 / 5.1 / 3.2 / 7.4 / 3.0 s,
   s06–s09 = 4.7 / 3.3 / 2.3 / 1.6 s, s10–s12 = 6.1 / 5.7 / 6.9 s. Requests per full pass dropped from
   12 to 3. To be confirmed by ear: whether reading a scene as one take sounds more natural than isolated lines.
+- **Result 3 (an edge case):** after s12 was reworded (F8), the new take s10–s12 failed the check
+  (2.9 / 8.8 / 7.8 s). The model had paused 0.62 s at a mid-line «፤» in s10, but only **0.26 s** at the
+  real break between s10 and s11. That was below the 0.3 s minimum, so the true break was not even a
+  candidate. I lowered the minimum to 0.2 s. Regression check: re-splitting the two earlier takes with
+  the new setting gave byte-identical files for all 9 lines, and the new take split as 5.9 / 6.3 / 7.8 s.
+  The case is now a unit test.
