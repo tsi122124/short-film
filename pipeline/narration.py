@@ -38,6 +38,10 @@ PRICE_TEXT_IN, PRICE_AUDIO_OUT, AUDIO_TOKENS_PER_S = 0.50, 9.00, 25
 # from https://docs.addisassistant.com/docs/platform/pricing (signup includes free credit).
 ADDIS_URL = "https://api.addisassistant.com/api/v1/voice/generations"
 ADDIS_ETB_PER_MIN = 5
+# Only these reply fields go into runs.jsonl. The reply also carries the audio itself as base64 (~650 KB)
+# and a signed playback link, which must not end up in a committed log.
+ADDIS_LOG_FIELDS = ("id", "voice_id", "language", "output_format", "duration_seconds", "character_count",
+                    "billable_characters", "usage")
 
 # Splitting a batch take back into lines
 BATCH_PAUSE_STYLE = "Leave a clear pause of about two seconds between paragraphs."
@@ -232,7 +236,12 @@ def synthesize_addis(voice: str, text: str, lang: str, request_id: str) -> tuple
         raise RetryableError(f"Addis reply had no audio_url: {str(data)[:200]}")
     audio = requests.get(data["audio_url"], timeout=120)
     audio.raise_for_status()
-    return audio.content, {k: v for k, v in data.items() if k != "audio_url"}
+    return audio.content, addis_metadata(data)
+
+
+def addis_metadata(data: dict[str, Any]) -> dict[str, Any]:
+    """The small, loggable part of an Addis reply (an allowlist, so a new large field cannot slip in)."""
+    return {k: data[k] for k in ADDIS_LOG_FIELDS if k in data}
 
 
 def usage_fields(result: tuple[bytes, Any]) -> dict[str, Any]:

@@ -22,6 +22,14 @@ def take(*parts: list[int]) -> bytes:
     return narration.pcm_to_wav(array("h", [s for part in parts for s in part]).tobytes(), RATE)
 
 
+def test_addis_metadata_keeps_billing_but_not_the_audio_or_signed_link():
+    reply = {"id": "abc", "duration_seconds": 5.67, "usage": {"credits_used": 0.47, "currency": "ETB"},
+             "audio": "UklGR" * 100_000, "playback": {"url": "https://cdn.example/a.wav?sig=secret"},
+             "audio_url": "https://cdn.example/a.wav?sig=secret"}
+    logged = narration.addis_metadata(reply)
+    assert logged == {"id": "abc", "duration_seconds": 5.67, "usage": {"credits_used": 0.47, "currency": "ETB"}}
+
+
 def test_split_take_cuts_at_the_long_pauses_not_the_short_ones():
     # line 1 has a short breath (0.3 s) inside it; lines are separated by 1.5 s pauses
     audio = take(silence(0.2), tone(1.0), silence(0.3), tone(1.0), silence(1.5), tone(1.0),
