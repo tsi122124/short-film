@@ -1,14 +1,15 @@
 """One command for the whole pipeline: `uv run film` (or `uv run film --radio` for the radio cut).
 
-Each stage reads storyboard.json and skips any output whose input hash already exists, so a re-run
-after editing one shot regenerates only that shot.
+validate -> narration -> keyframes -> shots + assembly. Each stage reads storyboard.json and reuses any
+output whose input hash already exists, so a re-run after editing one shot regenerates only that shot.
+Moving shots from Wan 2.2 come from a Kaggle GPU (notebooks/); shots without one get a camera move.
 """
 
 from __future__ import annotations
 
 import argparse
 
-from pipeline import assemble, narration
+from pipeline import assemble, keyframes, narration
 from pipeline.storyboard import load_storyboard
 
 
@@ -21,6 +22,8 @@ def main() -> None:
     storyboard = load_storyboard()  # validate the contract before spending any quota
     print(f"storyboard OK: {len(storyboard['shots'])} shots")
     narration.run(storyboard)
+    if not args.radio:
+        keyframes.run_keyframes(storyboard)
     aspects = list(assemble.ASPECTS) if args.aspect == "both" else [args.aspect]
     assemble.run(storyboard, radio=args.radio, aspects=aspects)
 
