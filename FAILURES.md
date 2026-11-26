@@ -25,14 +25,26 @@
 - **Fix:** cut the script (E3), keeping only what the picture cannot show; shortened lead-in/tail pauses.
 - **Prevention:** the assembly stage prints the measured total and flags anything outside 60–90 s.
 
-## F4. A TTS call hung forever
+## F4. TTS calls "hung" for up to 15 minutes
 
-- **What broke:** the s12 narration call (and one comparison call) never returned: no error, no retry,
-  no log line.
-- **Why:** the Gemini client had no request timeout, so a stalled connection waited forever and the
-  retry logic in `call_model()` never got an exception to act on.
-- **Fix:** a 120 s timeout on the client (`REQUEST_TIMEOUT_MS`); a timeout is a network error, which the
-  retry policy retries with backoff.
+- **What broke:** the s12 narration call, one comparison call, and then a whole film run never returned:
+  no error, no retry, no log line.
+- **First hypothesis (wrong):** no request timeout. I added a 120 s client timeout; the next run still hung.
+- **Investigation:**
+  1. A `faulthandler` stack dump after 75 s showed the process inside an `import`: the SDK's Interactions
+     package takes 20–26 s to import on this laptop, every run (F5).
+  2. My own hard deadline then turned the hang into four logged `TimeoutError`s.
+  3. A raw REST call to the same endpoint without the SDK returned **HTTP 429: "limit: 10 requests per day
+     on Free Tier … retry in 4h3m"**, with a `retry-after` header of 14,593 s.
+- **Root cause:** the daily TTS quota was used up, and the SDK retried silently while honouring the
+  4-hour `retry-after`, which looks exactly like a hang.
+- **Fix:**
+  - SDK retries switched off (`retry_options={"attempts": 1}`), so a 429 surfaces at once in `call_model()`,
+    the one retry layer that logs every attempt.
+  - A hard per-attempt deadline (`run_with_deadline`) as a safety net.
+  - The SDK import moved out of the timed section, so logged latency measures only the API. The smoke
+    test's "25.6 s TTS latency" was mostly import time.
+- **Lesson:** keep one retry layer, and make it observable.
 
 ## F5. My laptop is the slowest part of the pipeline
 
@@ -49,3 +61,20 @@
   describes only automatic Content Credentials (C2PA) detection, no manual toggle.
 - **Fix:** post on YouTube Shorts with "AI use: Yes" switched on, and on LinkedIn with a written
   disclosure in the first line linking the labelled version (ETHICS.md).
+
+## F7. Ten TTS requests a day, twelve narration lines
+
+- **What broke:** one request per shot needs 12 requests per full narration pass, but the free tier allows
+  10 a day for `gemini-3.8-flash-tts`. The smoke test, the first full pass and the voice comparison had
+  used them up by early morning, before the radio cut existed.
+- **Options:**
+  - Wait for the reset at about 11:00 EAT. Too late for the first user test.
+  - Switch to Addis AI, which has no daily cap. But Gemini Sulafat won on expressiveness (E1).
+  - Read several lines per request.
+- **Fix:** `narration.batches` in the storyboard. One request per scene (3 for all 12 lines), each take
+  split back into lines (E4). The raw takes are cached, so re-splitting costs no quota. A changed line
+  costs one request for its scene.
+- **Transparency:** my own project's quota was exhausted that morning, so the three batch requests ran on
+  a friend's Gemini API key, used with their consent. The key lives only in the gitignored `.env` and
+  will be rotated after the challenge.
+
