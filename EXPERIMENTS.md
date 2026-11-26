@@ -37,4 +37,24 @@ Each entry: hypothesis → change → result, with the evidence (log lines in `r
   ~113 s to ~70 s while keeping all story beats and my grandmother's real words.
 - **Change:** storyboard v2 → v3 (see DESIGN.md); e.g. s09 went from «…እኔ በሩ ላይ ብቅ አልኩ፤ መጥረጊያው
   ትከሻዬ ላይ።» to «…እኔ በሩ ላይ ብቅ አልኩ።», because the image shows the sweeper.
-- **Result:** _pending the v3 radio cut measurement._
+- **Result:** speech went from 104 s (11 of 12 shots, v2) to **54.5 s for all 12 shots** (v3, batched),
+  so the planned film is 81 s. This is not a one-variable result: the text cut, the new style
+  instruction and batched reading all changed together. All story beats and Grandma's exact words survived.
+
+## E4. Can one request read a whole scene and still give one file per shot?
+
+- **Hypothesis:** with "leave a clear pause of about two seconds between paragraphs" in the style, the
+  pauses between lines will be clearly longer than pauses inside lines, so splitting at the longest
+  pauses recovers the lines.
+- **Change:** `narration.batches` = three scenes (s01–s05, s06–s09, s10–s12), one request each, lines
+  joined as paragraphs.
+- **Result 1 (hypothesis rejected):** the model ignored the pause instruction. In take s01–s05 the
+  breaks between lines lasted 0.50–0.76 s, the same as pauses at full stops inside lines (0.50 s).
+  Longest-pause splitting cut inside s04, giving it 2.5 s for 71 characters. The plausibility check
+  (`SplitError`) caught this before any wrong audio was written.
+- **Change 2:** estimate each break from the text (a line's share of the characters is roughly its share
+  of the time), then snap to the nearest real pause, preferring longer ones. I re-split the cached take,
+  so this cost no new request.
+- **Result 2:** all three takes split and passed the check: s01–s05 = 5.0 / 5.1 / 3.2 / 7.4 / 3.0 s,
+  s06–s09 = 4.7 / 3.3 / 2.3 / 1.6 s, s10–s12 = 6.1 / 5.7 / 6.9 s. Requests per full pass dropped from
+  12 to 3. To be confirmed by ear: whether reading a scene as one take sounds more natural than isolated lines.

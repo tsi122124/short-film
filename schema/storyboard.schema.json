@@ -56,7 +56,17 @@
         "voice": { "type": "string", "description": "Prebuilt synthetic TTS voice; not a cloned real voice." },
         "style": { "type": "string", "description": "Plain-language delivery instruction sent with every line." },
         "lead_in_s": { "type": "number", "minimum": 0, "maximum": 2 },
-        "tail_s": { "type": "number", "minimum": 0, "maximum": 3 }
+        "tail_s": { "type": "number", "minimum": 0, "maximum": 3 },
+        "batches": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Shots read together in one TTS request (e.g. one per scene), then split on the pauses. Omit for one request per shot.",
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "pattern": "^s[0-9]{2}$" }
+          }
+        }
       }
     },
     "music": {
