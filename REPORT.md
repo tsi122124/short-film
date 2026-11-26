@@ -110,7 +110,9 @@ FAILURES.md has 16 entries. Four shaped the system:
   settings fixed both. A unit test now guards the second.
 - **Free GPUs are not guaranteed** (F15). Both Kaggle jobs (Wan 2.2 motion and ACE-Step music) waited
   in the queue for over five hours. The pipeline was built to degrade: shots without a matching Wan clip
-  get a Ken Burns camera move, rendered locally. ⟪Music: generated on Colab instead / see below⟫
+  get a Ken Burns camera move, rendered locally. The music had no such second source in time, so this
+  cut uses the pipeline's placeholder bed, still shaped by the storyboard's music cues and ducked under
+  the voice. The end card credits only the tools actually used.
 
 I also found and fixed a logging bug while preparing this report. The Addis AI reply carries the audio
 as base64 and a signed link, and both were going into `runs.jsonl` (6.4 MB). Replies are now logged
@@ -124,11 +126,13 @@ memory of the day (DESIGN.md has the full table). The two audience tests:
 **Test 1, radio cut** (narration and music on black, 9:16): ⟪who, how many, what they said⟫
 → changes: ⟪…⟫
 
-**Test 2, near-final cut**: ⟪who, how many, what they said⟫ → storyboard v7: Grandma visibly leads the
-walk and the road crossing, the aunt joins the laughter in s11, s12 shows Grandma's portrait beside the
-sweeper, and s05 shows the girl actually reaching for the handle. v7 also adds `face_from`, so one person
-keeps the same face across two outfits. It is committed on the branch `feat/storyboard-v7` and needs
-about 1,400 image neurons, which the daily cap made unavailable before the deadline.
+**Test 2, near-final cut**: ⟪who, how many, what they said⟫ → changes: ⟪…⟫
+
+**Storyboard v7, not yet rendered.** Grandma visibly leads the walk and the road crossing, the aunt
+joins the laughter in s11, s12 shows Grandma's portrait beside the sweeper, and s05 shows the girl
+actually reaching for the handle. v7 also adds `face_from`, so one person keeps the same face across two
+outfits. It is committed on the branch `feat/storyboard-v7` and needs about 1,400 image neurons, which
+the daily cap made unavailable before the deadline.
 
 ## 7. Ethics
 
@@ -146,7 +150,7 @@ about 1,400 image neurons, which the daily cap made unavailable before the deadl
 ## 8. Limitations and next steps
 
 - **Render v7** after the image quota resets, then run the Wan 2.2 job so the key shots move instead of
-  using camera moves.
+  using camera moves, and the ACE-Step job to replace the placeholder music.
 - **Faces still drift** between shots, Grandma's most. A character LoRA, or a larger image model, is the
   next step for identity.
 - **The voice choice rests on one listener.** A blind test with five or more Amharic speakers is
