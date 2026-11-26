@@ -1,0 +1,198 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Heritage Short storyboard",
+  "description": "The contract between every pipeline stage. Each stage reads its creative inputs from storyboard.json and nothing else, so prompts, seeds and models are visible and reproducible.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version", "title", "logline", "audience", "intent", "language", "style_block",
+    "characters", "props", "models", "image", "narration", "music", "end_card", "shots"
+  ],
+  "properties": {
+    "version": { "type": "integer", "minimum": 1 },
+    "title": { "$ref": "#/$defs/text_by_language" },
+    "logline": { "type": "string", "minLength": 20 },
+    "audience": { "type": "string", "minLength": 20, "description": "Who watches, and where." },
+    "intent": { "type": "string", "minLength": 20, "description": "What they should feel or understand at the end." },
+    "language": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}$",
+      "description": "ISO 639 code of the narration language; every shot's narration must contain it."
+    },
+    "style_block": {
+      "type": "string",
+      "minLength": 20,
+      "description": "Appended to every image prompt so the look never drifts."
+    },
+    "characters": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/character" } },
+    "props": { "type": "array", "items": { "$ref": "#/$defs/prop" } },
+    "models": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "tts", "image", "video", "music"],
+      "properties": {
+        "text": { "type": "string" },
+        "tts": { "type": "string" },
+        "image": { "type": "string" },
+        "video": { "type": "string" },
+        "music": { "type": "string" }
+      }
+    },
+    "image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width", "height", "steps"],
+      "properties": {
+        "width": { "type": "integer", "minimum": 256, "maximum": 2048, "multipleOf": 16 },
+        "height": { "type": "integer", "minimum": 256, "maximum": 2048, "multipleOf": 16 },
+        "steps": { "type": "integer", "minimum": 1, "maximum": 50 }
+      }
+    },
+    "narration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["voice", "style", "lead_in_s", "tail_s"],
+      "properties": {
+        "voice": { "type": "string", "description": "Prebuilt synthetic TTS voice; not a cloned real voice." },
+        "style": { "type": "string", "description": "Plain-language delivery instruction sent with every line." },
+        "lead_in_s": { "type": "number", "minimum": 0, "maximum": 2 },
+        "tail_s": { "type": "number", "minimum": 0, "maximum": 3 }
+      }
+    },
+    "music": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["caption", "bpm", "key", "duration_s", "candidate_seeds", "chosen_seed", "cues"],
+      "properties": {
+        "caption": { "type": "string", "minLength": 20 },
+        "bpm": { "type": "integer", "minimum": 40, "maximum": 200 },
+        "key": { "type": "string" },
+        "duration_s": { "type": "number", "minimum": 30, "maximum": 120 },
+        "candidate_seeds": {
+          "type": "array", "minItems": 1, "maxItems": 8, "uniqueItems": true,
+          "items": { "type": "integer", "minimum": 0 }
+        },
+        "chosen_seed": {
+          "type": ["integer", "null"],
+          "description": "The candidate picked after listening; null until chosen."
+        },
+        "chosen_reason": { "type": "string" },
+        "cues": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/cue" } }
+      }
+    },
+    "end_card": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lines", "duration_s"],
+      "properties": {
+        "lines": { "type": "array", "minItems": 1, "maxItems": 5, "items": { "type": "string", "minLength": 1 } },
+        "duration_s": { "type": "number", "minimum": 2, "maximum": 4 }
+      }
+    },
+    "shots": { "type": "array", "minItems": 8, "maxItems": 12, "items": { "$ref": "#/$defs/shot" } }
+  },
+  "$defs": {
+    "text_by_language": {
+      "type": "object",
+      "description": "Text keyed by ISO 639 language code. English is always required for subtitles.",
+      "required": ["en"],
+      "propertyNames": { "pattern": "^[a-z]{2,3}$" },
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    },
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["prompt", "seed"],
+      "description": "The golden reference image every keyframe of this character or object is conditioned on.",
+      "properties": {
+        "prompt": { "type": "string", "minLength": 20, "description": "May use {character_id}/{prop_id} placeholders." },
+        "seed": {
+          "type": ["integer", "null"],
+          "description": "The approved candidate's seed; null until a candidate has been chosen."
+        }
+      }
+    },
+    "character": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "role", "label", "description", "real_person", "reference"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z_]*$" },
+        "role": { "type": "string" },
+        "label": { "type": "string", "description": "Short noun phrase used in prompts, e.g. 'the girl'." },
+        "description": { "type": "string", "minLength": 20 },
+        "real_person": { "type": "boolean" },
+        "consent_id": { "type": "string", "pattern": "^C[0-9]+$" },
+        "reference": { "$ref": "#/$defs/reference" }
+      },
+      "if": { "properties": { "real_person": { "const": true } } },
+      "then": { "required": ["consent_id"] }
+    },
+    "prop": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "description"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z_]*$" },
+        "label": { "type": "string" },
+        "description": { "type": "string", "minLength": 10 },
+        "reference": { "$ref": "#/$defs/reference" }
+      },
+      "dependentRequired": { "reference": ["label"] }
+    },
+    "cue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "from_shot", "to_shot", "mood", "level"],
+      "properties": {
+        "id": { "type": "string" },
+        "from_shot": { "type": "string", "pattern": "^s[0-9]{2}$" },
+        "to_shot": { "type": "string", "pattern": "^s[0-9]{2}$" },
+        "mood": { "type": "string" },
+        "level": { "type": "number", "minimum": 0, "maximum": 1, "description": "Music gain before ducking." }
+      }
+    },
+    "shot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "beat", "reason", "size", "duration_s", "characters", "image_prompt",
+        "motion_prompt", "seed", "motion", "narration"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^s[0-9]{2}$" },
+        "beat": { "type": "string", "minLength": 3 },
+        "reason": { "type": "string", "minLength": 15, "description": "Why this shot exists." },
+        "size": {
+          "enum": ["extreme_wide", "wide", "medium", "medium_close", "close", "extreme_close", "insert"]
+        },
+        "duration_s": { "type": "number", "minimum": 3, "maximum": 12 },
+        "characters": {
+          "type": "array", "uniqueItems": true,
+          "items": { "type": "string" },
+          "description": "Character ids that appear; real people here trigger the consent gate."
+        },
+        "image_prompt": {
+          "type": "string",
+          "minLength": 20,
+          "description": "May use {character_id} and {prop_id} placeholders, filled from their descriptions."
+        },
+        "motion_prompt": { "type": "string", "minLength": 10, "description": "Motion and camera only." },
+        "seed": { "type": "integer", "minimum": 0, "maximum": 4294967295 },
+        "motion": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["method", "kenburns"],
+          "properties": {
+            "method": { "enum": ["wan", "kenburns"] },
+            "kenburns": {
+              "enum": ["push_in", "pull_out", "pan_left", "pan_right", "pan_up", "pan_down"],
+              "description": "Used when method is kenburns, and as the fallback if a Wan clip is missing."
+            }
+          }
+        },
+        "narration": { "$ref": "#/$defs/text_by_language" }
+      }
+    }
+  }
+}
