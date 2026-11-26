@@ -129,7 +129,7 @@
     ]
   },
   "music": {
-    "caption": "instrumental, gentle Ethiopian-inspired acoustic folk, plucked krar lyre melody, soft masinko bowed string, light hand drum, warm, playful and nostalgic, intimate sparse arrangement that leaves room for a narrator",
+    "caption": "instrumental, emotional and heartfelt Ethiopian-inspired acoustic film score in the nostalgic tizita mood, a tender singing krar lyre melody, warm masinko bowed strings, gentle kebero hand drum, soft and intimate, begins light and playful, then grows warm, tender and moving, cinematic, leaves space for a narrator",
     "bpm": 84,
     "key": "C major",
     "duration_s": 90,
@@ -174,7 +174,8 @@
   "end_card": {
     "lines": [
       "Made with AI",
-      "Narration: Gemini TTS | Images: FLUX.2 klein | Motion: Wan 2.2 | Music: ACE-Step 1.5",
+      "Narration: Gemini TTS · Images: FLUX.2 klein",
+      "Camera moves: FFmpeg",
       "A true family story, in memory of my grandmother"
     ],
     "duration_s": 3
@@ -251,7 +252,7 @@
     {
       "id": "s04",
       "beat": "Grandma leaves to comfort the neighbours",
-      "reason": "The heritage heart of the film: the mourning dress, the netela turned down, the custom of comforting grieving neighbours, and the goodbye the child is about to mishear.",
+      "reason": "The heritage heart of the film: the black mourning dress and veil, the custom of comforting grieving neighbours, and the goodbye the child is about to mishear.",
       "size": "medium",
       "location": "interior",
       "duration_s": 10,
@@ -266,8 +267,8 @@
         "kenburns": "push_in"
       },
       "narration": {
-        "am": "አራት ሰዓት ላይ አያቴ ነጠላዋን አዘቅዝቃ ለቅሶ ልትደርስ ተነሳች። «መጣሁ ልጄ፣ ቶሎ እመለሳለሁ» ብላኝ ወጣች።",
-        "en": "At ten, her netela turned down for mourning, Grandma set off to comfort grieving neighbours. \"I'll be right back, my child,\" she said."
+        "am": "አራት ሰዓት ላይ አያቴ ጥቁር የሃዘን ልብስ ለብሳ ለቅሶ ልትደርስ ተነሳች። «መጣሁ ልጄ፣ ቶሎ እመለሳለሁ» ብላኝ ወጣች።",
+        "en": "At ten, dressed in black for mourning, Grandma set off to comfort grieving neighbours. \"I'll be right back, my child,\" she said."
       }
     },
     {
@@ -275,12 +276,11 @@
       "beat": "The misunderstanding",
       "reason": "The comic premise: her head is so full of the sweeper that a goodbye sounds like an order to bring it.",
       "size": "medium_close",
-      "location": "interior",
       "duration_s": 6,
       "characters": [
         "child"
       ],
-      "image_prompt": "Inside the home: {child} standing beside {sweeper} leaning against the whitewashed wall, looking up at it with a serious, determined little face, as if she has just been given a very important job",
+      "image_prompt": "Medium close-up of {child} standing beside {sweeper}, looking up at it with a serious, determined little face, as if she has just been given a very important job",
       "motion_prompt": "The girl nods to herself and reaches for the handle; fixed camera.",
       "seed": 1105,
       "motion": {
