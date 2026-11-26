@@ -115,6 +115,7 @@
       2103
     ],
     "chosen_seed": null,
+    "bed_lufs": -20,
     "cues": [
       {
         "id": "m1",

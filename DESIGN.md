@@ -48,6 +48,7 @@ shock, then laughed, and sent me and the sweeper home with my aunt.
 | v3 | Narration cut from ~113 s to ~70 s of speech; lines that repeat the picture removed (e.g. s09 is now just «…እኔ በሩ ላይ ብቅ አልኩ።»); Grandma and my aunt described as they really looked | The first measured TTS pass ran 104 s for 11 of 12 shots: a ~2-minute film. See FAILURES.md F3 |
 | v3.1 | s12 now ends with a refrain: «…ያስቃል። አሁንም ያስቃል።» ("It still does.") | My own listen of the radio cut: the TTS mispronounced the final «ያስቃል». The refrain also gives the ending a rhythm. See FAILURES.md F8 |
 | v3.2 | s12 opens «ውዷ አያቴ…» ("My dear grandmother…") | My own listen: «አያቴ» was mispronounced at the start of s12 only. The extra word fixed the reading and warmed the tribute (F8) |
+| v3.3 | Music bed raised 6 dB (`music.bed_lufs` −26 → −20 LUFS, still ducked under the voice) | My own listen: the score was too quiet to carry any feeling |
 
 ## User test 1: the radio cut
 

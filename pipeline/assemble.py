@@ -39,6 +39,8 @@ MIX_RATE = 48_000
 # measured -0.88 dBTP when aiming at -1.0), and the platform ceiling is -1.0.
 LOUDNESS = {"I": -14.0, "TP": -1.5, "LRA": 11.0}
 DUCKING = "sidechaincompress=threshold=0.02:ratio=6:attack=300:release=1500"
+VOICE_LUFS = -16
+DEFAULT_BED_LUFS = -26  # used when storyboard music.bed_lufs is absent
 RAMP_S = 0.5
 
 # Output size, subtitle size and bottom margin per aspect. The 9:16 margin keeps captions above the
@@ -156,12 +158,13 @@ def placeholder_music(total_s: float, out: Path) -> None:
     run_ffmpeg(["-f", "lavfi", "-i", source, "-ac", "2", str(out)], step="placeholder_music")
 
 
-def mix(voice_wav: Path, music: Path, envelope: str, total_s: float, out: Path) -> None:
+def mix(voice_wav: Path, music: Path, envelope: str, total_s: float, out: Path, bed_lufs: float) -> None:
+    """Bring voice and music to set loudness levels first, so the balance is a decision, not a repair."""
     graph = (
         f"[0:a]aresample={MIX_RATE},aformat=channel_layouts=stereo,"
-        f"loudnorm=I=-16:TP=-2:LRA=11,aresample={MIX_RATE},asplit=2[voice][key];"
+        f"loudnorm=I={VOICE_LUFS}:TP=-2:LRA=11,aresample={MIX_RATE},asplit=2[voice][key];"
         f"[1:a]aresample={MIX_RATE},aformat=channel_layouts=stereo,apad,atrim=0:{total_s:.3f},"
-        f"loudnorm=I=-26:TP=-2:LRA=11,aresample={MIX_RATE},volume='{envelope}':eval=frame[music];"
+        f"loudnorm=I={bed_lufs}:TP=-2:LRA=11,aresample={MIX_RATE},volume='{envelope}':eval=frame[music];"
         f"[music][key]{DUCKING}[ducked];"
         "[voice][ducked]amix=inputs=2:normalize=0:duration=first[mix]"
     )
@@ -301,7 +304,8 @@ def run(storyboard: dict[str, Any], *, radio: bool, aspects: list[str]) -> list[
     build_voice_track(slots, voice, total_s, work / "voice.wav")
     placeholder_music(total_s, work / "music.wav")
     envelope = envelope_expr(envelope_points(slots, music_levels(storyboard), total_s))
-    mix(work / "voice.wav", work / "music.wav", envelope, total_s, work / "mix.wav")
+    bed_lufs = storyboard["music"].get("bed_lufs", DEFAULT_BED_LUFS)
+    mix(work / "voice.wav", work / "music.wav", envelope, total_s, work / "mix.wav", bed_lufs)
     loudness = master(work / "mix.wav", work / "master.wav")
     write_srt(slots, FILM_DIR / "subtitles_en.srt")
 

@@ -87,6 +87,12 @@
           "description": "The candidate picked after listening; null until chosen."
         },
         "chosen_reason": { "type": "string" },
+        "bed_lufs": {
+          "type": "number",
+          "minimum": -40,
+          "maximum": -14,
+          "description": "Loudness the music is brought to before cue levels and ducking; the voice sits at -16 LUFS."
+        },
         "cues": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/cue" } }
       }
     },
