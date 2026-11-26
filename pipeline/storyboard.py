@@ -82,6 +82,10 @@ def rule_problems(storyboard: dict[str, Any]) -> list[str]:
         if lang not in shot["narration"]:
             problems.append(f"{shot['id']}: narration has no '{lang}' line")
 
+    batches = storyboard["narration"].get("batches")
+    if batches and [shot_id for batch in batches for shot_id in batch] != shot_ids:
+        problems.append("narration.batches must list every shot exactly once, in storyboard order")
+
     position = {shot_id: i for i, shot_id in enumerate(shot_ids)}
     for cue in storyboard["music"]["cues"]:
         start, end = position.get(cue["from_shot"]), position.get(cue["to_shot"])
