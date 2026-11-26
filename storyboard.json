@@ -175,7 +175,7 @@
     "lines": [
       "Made with AI",
       "Narration: Gemini TTS · Images: FLUX.2 klein",
-      "Motion: Wan 2.2 and FFmpeg · Music: ACE-Step 1.5",
+      "Camera moves: FFmpeg",
       "A true family story, in memory of my grandmother"
     ],
     "duration_s": 3
@@ -252,7 +252,7 @@
     {
       "id": "s04",
       "beat": "Grandma leaves to comfort the neighbours",
-      "reason": "The heritage heart of the film: the mourning dress, the netela turned down, the custom of comforting grieving neighbours, and the goodbye the child is about to mishear.",
+      "reason": "The heritage heart of the film: the black mourning dress and veil, the custom of comforting grieving neighbours, and the goodbye the child is about to mishear.",
       "size": "medium",
       "location": "interior",
       "duration_s": 10,
@@ -267,8 +267,8 @@
         "kenburns": "push_in"
       },
       "narration": {
-        "am": "አራት ሰዓት ላይ አያቴ ነጠላዋን አዘቅዝቃ ለቅሶ ልትደርስ ተነሳች። «መጣሁ ልጄ፣ ቶሎ እመለሳለሁ» ብላኝ ወጣች።",
-        "en": "At ten, her netela turned down for mourning, Grandma set off to comfort grieving neighbours. \"I'll be right back, my child,\" she said."
+        "am": "አራት ሰዓት ላይ አያቴ ጥቁር የሃዘን ልብስ ለብሳ ለቅሶ ልትደርስ ተነሳች። «መጣሁ ልጄ፣ ቶሎ እመለሳለሁ» ብላኝ ወጣች።",
+        "en": "At ten, dressed in black for mourning, Grandma set off to comfort grieving neighbours. \"I'll be right back, my child,\" she said."
       }
     },
     {
