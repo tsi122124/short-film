@@ -126,6 +126,22 @@
   clearly visible, handle diagonal"), and use a new seed. The s09 retake drew a bristle head at both ends;
   the 9:16 centre crop hides the second one, and the 16:9 version shows it.
 
+## F14. The daily image cap, hit for real, and a broken Kaggle CLI
+
+- **What broke:**
+  1. The first full-film run tried to regenerate keyframe s05, whose prompt I had changed without
+     regenerating it. Cloudflare answered **429, code 4006: "you have used up your daily free allocation
+     of 10,000 neurons"**, and the retry policy retried it four times, because 429 normally means
+     "slow down".
+  2. `uvx kaggle` crashed with `No module named 'six'`: the kaggle package imports `six` without
+     declaring it as a dependency.
+- **Fix:**
+  1. Code 4006 now fails fast with a clear message, since no retry can help before the reset at
+     00:00 UTC. s05 went back to its previous prompt, so its existing keyframe matched the cache key
+     again and the film rendered with **zero** image calls. That is the cache doing its job.
+  2. `uvx --with six kaggle`. A later "connection aborted" was a one-off network drop; the retry worked.
+- **Lesson:** a 429 is not always "slow down". Read the error code before retrying.
+
 ## F6. LinkedIn has no AI-label toggle
 
 - **What broke:** the brief asks to post with the platform's AI label switched on. LinkedIn's help page
