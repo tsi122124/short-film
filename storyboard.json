@@ -129,7 +129,7 @@
     ]
   },
   "music": {
-    "caption": "instrumental, gentle Ethiopian-inspired acoustic folk, plucked krar lyre melody, soft masinko bowed string, light hand drum, warm, playful and nostalgic, intimate sparse arrangement that leaves room for a narrator",
+    "caption": "instrumental, emotional and heartfelt Ethiopian-inspired acoustic film score in the nostalgic tizita mood, a tender singing krar lyre melody, warm masinko bowed strings, gentle kebero hand drum, soft and intimate, begins light and playful, then grows warm, tender and moving, cinematic, leaves space for a narrator",
     "bpm": 84,
     "key": "C major",
     "duration_s": 90,
@@ -174,7 +174,8 @@
   "end_card": {
     "lines": [
       "Made with AI",
-      "Narration: Gemini TTS | Images: FLUX.2 klein | Motion: Wan 2.2 | Music: ACE-Step 1.5",
+      "Narration: Gemini TTS · Images: FLUX.2 klein",
+      "Motion: Wan 2.2 and FFmpeg · Music: ACE-Step 1.5",
       "A true family story, in memory of my grandmother"
     ],
     "duration_s": 3
@@ -275,12 +276,11 @@
       "beat": "The misunderstanding",
       "reason": "The comic premise: her head is so full of the sweeper that a goodbye sounds like an order to bring it.",
       "size": "medium_close",
-      "location": "interior",
       "duration_s": 6,
       "characters": [
         "child"
       ],
-      "image_prompt": "Inside the home: {child} standing beside {sweeper} leaning against the whitewashed wall, looking up at it with a serious, determined little face, as if she has just been given a very important job",
+      "image_prompt": "Medium close-up of {child} standing beside {sweeper}, looking up at it with a serious, determined little face, as if she has just been given a very important job",
       "motion_prompt": "The girl nods to herself and reaches for the handle; fixed camera.",
       "seed": 1105,
       "motion": {
