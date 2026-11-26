@@ -45,6 +45,15 @@ def test_split_take_uses_the_text_when_all_pauses_look_alike():
                                        2.5 + 2 * narration.EDGE_PAD_S], abs=0.05)
 
 
+def test_split_take_finds_a_short_line_break_next_to_a_longer_mid_line_pause():
+    # Regression (take s10-s12): the model paused 0.62 s at a mid-line semicolon but only 0.26 s
+    # between two lines. The short pause must still be found and chosen.
+    audio = take(silence(0.2), tone(1.0), silence(0.6), tone(2.0), silence(0.25), tone(3.0), silence(0.2))
+    lines = narration.split_take(audio, ["a" * 30, "b" * 30])
+    durations = [narration.wav_duration_s(line) for line in lines]
+    assert durations == pytest.approx([3.6 + 2 * narration.EDGE_PAD_S, 3.0 + 2 * narration.EDGE_PAD_S], abs=0.05)
+
+
 def test_split_take_refuses_when_there_are_too_few_pauses():
     with pytest.raises(narration.SplitError, match="need 2"):
         narration.split_take(take(tone(1.0), silence(1.0), tone(1.0)), ["a", "b", "c"])

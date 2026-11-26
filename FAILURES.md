@@ -55,6 +55,24 @@
 - **Fix:** render only the 9:16 version for the radio cut; cache each shot's rendered clip by input hash
   so a re-run only re-encodes what changed; run GPU work (Wan 2.2, ACE-Step) on Kaggle, not locally.
 
+## F8. The last word of the film was mispronounced
+
+- **What broke:** listening to the radio cut, I heard the final word of s12, «ያስቃል» ("makes laugh"),
+  mispronounced by Gemini TTS. My analysis confirmed the word was present and not clipped by the
+  pipeline (speech ends at 20.12–20.18 s at any threshold; the trim kept up to 20.18 s).
+- **Options:** Gemini TTS offers no phonetic markup for Amharic, so the fix had to be in the words:
+  rephrase, try an alternative spelling, or simply re-record.
+- **Fix:** I rewrote the ending as a refrain, «…ያስቃል። አሁንም ያስቃል።» ("…makes them laugh. It still
+  does."), and dropped «ዛሬም» to avoid saying "still" twice. Re-recording that scene cost one request.
+  The new take exposed a splitting edge case (E4, result 3).
+- **Then a second word:** in the new take, «አያቴ» ("my grandmother") at the start of s12 was mispronounced,
+  although the same word is said correctly in s01, s04, s08 and s10. The difference is the context:
+  in s12 it follows the end of s11 within the same take. I added «ውዷ» ("dear") before it:
+  «ውዷ አያቴ ዛሬ በሕይወት የለችም።». The new context changed the reading, and the tribute became warmer.
+  This cost one more request.
+- **Lesson:** a native-speaker listen catches what no metric does. Each fix cost one request because a
+  changed line regenerates only its own scene.
+
 ## F6. LinkedIn has no AI-label toggle
 
 - **What broke:** the brief asks to post with the platform's AI label switched on. LinkedIn's help page
