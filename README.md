@@ -37,7 +37,8 @@ storyboard.json ──validate(schema/)──► narration ──► keyframes �
 - **Consent gate in code.** The keyframe stage refuses to generate a real person unless `ETHICS.md` holds
   a granted consent record for them.
 
-Details: [ARCHITECTURE.md](ARCHITECTURE.md). Audience and user tests: [DESIGN.md](DESIGN.md).
+The finished films are in `outputs/film/` (`film_9x16.mp4`, `film_16x9.mp4`, `subtitles_en.srt`).
+Report: [REPORT.md](REPORT.md). Details: [ARCHITECTURE.md](ARCHITECTURE.md). Audience and user tests: [DESIGN.md](DESIGN.md).
 Experiments: [EXPERIMENTS.md](EXPERIMENTS.md). Failures: [FAILURES.md](FAILURES.md).
 Costs: [COSTS.md](COSTS.md). Consent, licences, labelling: [ETHICS.md](ETHICS.md).
 

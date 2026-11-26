@@ -87,11 +87,12 @@ Checked 2026-11-26 from the sources linked; re-check if a model is swapped.
 ## Labelling plan
 
 - A visible end card states the film was made with AI and names each model.
+- The film is posted on **LinkedIn**, where my audience (my network and the TRP cohort) is.
 - **LinkedIn has no manual AI-disclosure toggle** (its help page describes only automatic Content
-  Credentials / C2PA detection: https://www.linkedin.com/help/linkedin/answer/a6282984). So:
-  - the film is posted on **YouTube Shorts with "AI use: Yes" switched on** in YouTube Studio, which
-    satisfies "post with the platform's AI label switched on"
-    (https://support.google.com/youtube/answer/14328491);
-  - the LinkedIn post carries the film plus an explicit written disclosure in its first line
-    ("Made with AI: ...") and links the labelled YouTube version.
+  Credentials / C2PA detection: https://www.linkedin.com/help/linkedin/answer/a6282984). So the label
+  is carried by the content itself:
+  - the post's first line is an explicit disclosure ("Made with AI: …"), before the "see more" fold;
+  - the film's end card says "Made with AI" and names each model, so the label travels with the video
+    when it is reshared on WhatsApp or Telegram.
+- I chose not to cross-post to YouTube Shorts. Known gap: there is no platform-level AI flag.
 - Watermarks and provenance metadata from the models are left intact.
