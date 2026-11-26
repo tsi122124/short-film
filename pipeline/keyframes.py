@@ -157,6 +157,10 @@ def generate_image(model: str, prompt: str, width: int, height: int, seed: int, 
         files=fields,
         timeout=150,
     )
+    if reply.status_code == 429 and '"code":4006' in reply.text:
+        # The daily free allocation is used up: retrying cannot help until it resets (00:00 UTC), so fail fast
+        # with an error that carries no HTTP status (the retry policy only retries 429 with a status).
+        raise RuntimeError("Cloudflare daily free allocation of 10,000 neurons is used up (code 4006)")
     if not reply.ok:
         raise requests.HTTPError(f"{reply.status_code}: {reply.text[:300]}", response=reply)
     if reply.headers.get("content-type", "").startswith("application/json"):
