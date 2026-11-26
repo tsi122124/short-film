@@ -35,7 +35,9 @@ WORK = OUTPUTS / "assembly"
 FILM_DIR = OUTPUTS / "film"
 FPS = 24
 MIX_RATE = 48_000
-LOUDNESS = {"I": -14.0, "TP": -1.0, "LRA": 11.0}
+# Target -1.5 dBTP, not -1.0: linear loudnorm can overshoot its peak target slightly (the v3 radio cut
+# measured -0.88 dBTP when aiming at -1.0), and the platform ceiling is -1.0.
+LOUDNESS = {"I": -14.0, "TP": -1.5, "LRA": 11.0}
 DUCKING = "sidechaincompress=threshold=0.02:ratio=6:attack=300:release=1500"
 RAMP_S = 0.5
 
