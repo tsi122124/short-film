@@ -82,7 +82,27 @@
     "voice": "Sulafat",
     "style": "natural conversational pace, warm and gentle, like a woman telling a funny family memory to people she loves",
     "lead_in_s": 0.3,
-    "tail_s": 0.4
+    "tail_s": 0.4,
+    "batches": [
+      [
+        "s01",
+        "s02",
+        "s03",
+        "s04",
+        "s05"
+      ],
+      [
+        "s06",
+        "s07",
+        "s08",
+        "s09"
+      ],
+      [
+        "s10",
+        "s11",
+        "s12"
+      ]
+    ]
   },
   "music": {
     "caption": "instrumental, gentle Ethiopian-inspired acoustic folk, plucked krar lyre melody, soft masinko bowed string, light hand drum, warm, playful and nostalgic, intimate sparse arrangement that leaves room for a narrator",
