@@ -63,6 +63,9 @@ def rule_problems(storyboard: dict[str, Any]) -> list[str]:
         problems.append(f"duplicate shot ids: {duplicates}")
     if character_ids & prop_ids:
         problems.append(f"ids used for both a character and a prop: {sorted(character_ids & prop_ids)}")
+    for character in storyboard["characters"]:
+        if character.get("face_from") and character["face_from"] not in character_ids:
+            problems.append(f"{character['id']}: face_from refers to unknown character {character['face_from']}")
     for item in [*storyboard["characters"], *storyboard["props"]]:
         if "reference" in item:
             missing = placeholders(item["reference"]["prompt"]) - character_ids - prop_ids
