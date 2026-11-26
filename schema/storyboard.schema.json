@@ -5,7 +5,7 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "version", "title", "logline", "audience", "intent", "language", "style_block",
+    "version", "title", "logline", "audience", "intent", "language", "style_block", "setting",
     "characters", "props", "models", "image", "narration", "music", "end_card", "shots"
   ],
   "properties": {
@@ -22,7 +22,17 @@
     "style_block": {
       "type": "string",
       "minLength": 20,
-      "description": "Appended to every image prompt so the look never drifts."
+      "description": "The look (medium, palette, light), appended to every image prompt so it never drifts."
+    },
+    "setting": {
+      "type": "string",
+      "minLength": 20,
+      "description": "The outdoor place, appended to exterior keyframe prompts only: references show people and objects, not streets."
+    },
+    "interior_setting": {
+      "type": "string",
+      "minLength": 20,
+      "description": "The indoor place, appended to keyframes of shots whose location is 'interior'."
     },
     "characters": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/character" } },
     "props": { "type": "array", "items": { "$ref": "#/$defs/prop" } },
@@ -122,6 +132,17 @@
       "description": "The golden reference image every keyframe of this character or object is conditioned on.",
       "properties": {
         "prompt": { "type": "string", "minLength": 20, "description": "May use {character_id}/{prop_id} placeholders." },
+        "base_image": {
+          "description": "Repo path(s) of approved earlier images to edit from, sent as input images 0, 1, ... so the prompt can refer to 'image 0', 'image 1'.",
+          "oneOf": [
+            { "type": "string" },
+            { "type": "array", "minItems": 1, "maxItems": 4, "items": { "type": "string" } }
+          ]
+        },
+        "approved": {
+          "type": "string",
+          "description": "Repo path of the approved golden reference. Once set, it is used as-is and never regenerated."
+        },
         "seed": {
           "type": ["integer", "null"],
           "description": "The approved candidate's seed; null until a candidate has been chosen."
@@ -181,6 +202,10 @@
         "reason": { "type": "string", "minLength": 15, "description": "Why this shot exists." },
         "size": {
           "enum": ["extreme_wide", "wide", "medium", "medium_close", "close", "extreme_close", "insert"]
+        },
+        "location": {
+          "enum": ["interior", "exterior"],
+          "description": "Which setting is added to the keyframe prompt; defaults to exterior."
         },
         "duration_s": { "type": "number", "minimum": 3, "maximum": 12 },
         "characters": {
