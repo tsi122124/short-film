@@ -92,17 +92,38 @@ def golden_reference(storyboard: dict[str, Any], item: dict[str, Any]) -> Path:
 
 
 def shot_references(storyboard: dict[str, Any], shot: dict[str, Any]) -> list[dict[str, Any]]:
-    """Characters, then props, of this shot that have a reference image, in a stable order."""
+    """The reference images for one shot, each with the sentence that tells the model what to take from it.
+
+    Characters come first, then props. A character with `face_from` gets two images: the face (and hair)
+    from another look of the same person, and its own reference for the clothes. That keeps one face
+    across different outfits. Over the model's limit, clothing images are dropped first, because the
+    clothes are also described in words.
+    """
     refs = items_with_reference(storyboard)
-    ordered = [refs[c] for c in shot["characters"] if c in refs]
-    ordered += [refs[p] for p in sorted(placeholders(shot["image_prompt"])) if p in refs and refs[p] not in ordered]
-    if len(ordered) > MAX_REFERENCES:
-        raise ValueError(f"{shot['id']}: {len(ordered)} references, the model accepts at most {MAX_REFERENCES}")
-    return ordered
+    entries: list[dict[str, Any]] = []
+    for cid in shot["characters"]:
+        item = refs.get(cid)
+        if item is None:
+            continue
+        if item.get("face_from"):
+            entries.append({"item": refs[item["face_from"]],
+                            "text": f"{item['label']} has exactly the face, skin tone and hair of the person in image {{i}}"})
+            entries.append({"item": item, "optional": True,
+                            "text": f"{item['label']} wears exactly the clothes shown in image {{i}}"})
+        else:
+            entries.append({"item": item, "text": f"{item['label']} looks exactly like the one in image {{i}}"})
+    for pid in sorted(placeholders(shot["image_prompt"])):
+        if pid in refs and pid not in shot["characters"]:
+            entries.append({"item": refs[pid], "text": f"{refs[pid]['label']} looks exactly like the one in image {{i}}"})
+    while len(entries) > MAX_REFERENCES and any(e.get("optional") for e in entries):
+        entries.remove(next(e for e in entries if e.get("optional")))
+    if len(entries) > MAX_REFERENCES:
+        raise ValueError(f"{shot['id']}: {len(entries)} references, the model accepts at most {MAX_REFERENCES}")
+    return entries
 
 
 def keyframe_prompt(storyboard: dict[str, Any], shot: dict[str, Any], refs: list[dict[str, Any]]) -> str:
-    lead = "; ".join(f"{item['label']} looks exactly like the one in image {i}" for i, item in enumerate(refs))
+    lead = "; ".join(entry["text"].format(i=i) for i, entry in enumerate(refs))
     body = fill_template(storyboard, shot["image_prompt"], shot.get("location", "exterior"))
     return f"{lead}. {body}" if lead else body
 
@@ -116,7 +137,7 @@ def keyframe_inputs(storyboard: dict[str, Any], shot: dict[str, Any]) -> dict[st
         "height": storyboard["image"]["height"],
         "seed": shot["seed"],
         # content hashes of the golden references, so replacing one regenerates every keyframe that uses it
-        "references": [file_hash(golden_reference(storyboard, item)) for item in refs],
+        "references": [file_hash(golden_reference(storyboard, entry["item"])) for entry in refs],
     }
 
 
@@ -264,7 +285,7 @@ def run_keyframes(storyboard: dict[str, Any], only: set[str] | None = None) -> d
             continue
         require_consent(storyboard, shot["characters"])
         refs = shot_references(storyboard, shot)
-        ref_bytes = [as_reference_input(golden_reference(storyboard, item)) for item in refs]
+        ref_bytes = [as_reference_input(golden_reference(storyboard, entry["item"])) for entry in refs]
         make_image(path, keyframe_inputs(storyboard, shot), ref_bytes, "keyframes", shot["id"])
         made += 1
         print(f"  keyframe {shot['id']}: new  {path.name}")

@@ -29,6 +29,12 @@ def test_rules_catch_duplicate_ids_and_unknown_placeholders(board):
     assert "undefined placeholders ['uncle']" in problems
 
 
+def test_rules_catch_face_from_pointing_at_an_unknown_character(board):
+    broken = copy.deepcopy(board)
+    broken["characters"][0]["face_from"] = "uncle"
+    assert any("face_from refers to unknown character uncle" in p for p in sb.rule_problems(broken))
+
+
 def test_rules_catch_a_film_that_is_too_long(board):
     broken = copy.deepcopy(board)
     for shot in broken["shots"]:

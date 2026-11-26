@@ -28,20 +28,36 @@ def test_reference_prompts_get_no_setting_at_all(board):
     assert board["style_block"] in prompt
 
 
+def ref_ids(refs):
+    return [entry["item"]["id"] for entry in refs]
+
+
 def test_shot_references_are_characters_then_props_and_capped(board):
     refs = keyframes.shot_references(board, shot(board, "s01"))
-    assert [r["id"] for r in refs] == ["grandmother_home", "aunt", "child", "sweeper"]
+    assert ref_ids(refs) == ["grandmother_home", "aunt", "child", "sweeper"]
     crowded = copy.deepcopy(shot(board, "s01"))
     crowded["characters"].append("grandmother")
     with pytest.raises(ValueError, match="at most 4"):
         keyframes.shot_references(board, crowded)
 
 
-def test_prompt_names_each_reference_by_its_image_index(board):
+def test_face_from_adds_the_face_image_before_the_clothes_image(board):
+    # s04: grandmother (mourning look, face_from grandmother_home) and the girl; room for both images
+    refs = keyframes.shot_references(board, shot(board, "s04"))
+    assert ref_ids(refs) == ["grandmother_home", "grandmother", "child"]
+    assert refs[1].get("optional") is True
+
+
+def test_clothes_image_is_dropped_first_at_the_reference_cap(board):
+    # s11 needs five images (face, clothes, aunt, girl, broom); only the optional clothes image goes
     s = shot(board, "s11")
-    prompt = keyframes.keyframe_prompt(board, s, keyframes.shot_references(board, s))
-    assert "the girl looks exactly like the one in image 0" in prompt
-    assert "the broom looks exactly like the one in image 2" in prompt
+    refs = keyframes.shot_references(board, s)
+    assert ref_ids(refs) == ["grandmother_home", "aunt", "child", "sweeper"]
+    prompt = keyframes.keyframe_prompt(board, s, refs)
+    assert "the grandmother has exactly the face, skin tone and hair of the person in image 0" in prompt
+    assert "the girl looks exactly like the one in image 2" in prompt
+    assert "the broom looks exactly like the one in image 3" in prompt
+    assert "wears exactly the clothes" not in prompt
 
 
 def test_flagged_outputs_are_recognised():

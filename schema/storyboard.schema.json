@@ -160,6 +160,10 @@
         "description": { "type": "string", "minLength": 20 },
         "real_person": { "type": "boolean" },
         "consent_id": { "type": "string", "pattern": "^C[0-9]+$" },
+        "face_from": {
+          "type": "string",
+          "description": "Another character id (another look of the same person) whose reference supplies the face and hair."
+        },
         "reference": { "$ref": "#/$defs/reference" }
       },
       "if": { "properties": { "real_person": { "const": true } } },
