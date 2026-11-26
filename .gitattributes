@@ -1,0 +1,9 @@
+# Store text with LF line endings in the repository, whatever the contributor's OS.
+* text=auto eol=lf
+
+# Media is binary: never diff or convert it.
+*.wav binary
+*.mp3 binary
+*.mp4 binary
+*.png binary
+*.jpg binary
