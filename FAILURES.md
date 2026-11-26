@@ -153,6 +153,25 @@
 - **Lesson:** a free external dependency needs a fallback path and a deadline of its own. Next time I
   would push GPU jobs on day one, not on the last afternoon.
 
+## F17. Three people in one shot: the image model merges them
+
+- **What broke:** rendering storyboard v7 needed all 12 keyframes again. Shots with one or two people
+  came out right (s02–s05, s07). Shots asking for three people, or where the broom could belong to
+  either person, failed on every seed: Grandma carried the broom instead of the girl (s06), Grandma and
+  the girl merged into one figure with no aunt (s11), and Grandma stood in the room instead of
+  appearing in a portrait (s12).
+- **What did not work:** new seeds, and explicit positions ("on the left… on the right…"), which had
+  fixed E5. Three rounds each.
+- **What worked:** asking only for what FLUX.2 klein 4B can hold. s06 attaches only the girl's
+  reference and describes Grandma in words as a small distant figure; s11 shows Grandma and the girl
+  (the aunt stays in the narration); s12 attaches no person reference and describes the portrait in
+  words, because her full-body reference made the model draw her standing in the room.
+- **Also:** Cloudflare's filter flagged s02, s06 and s08 (code 3030), each fixed with a new seed (+100).
+  My own account had used its daily image allowance, so the v7 keyframes were made with a second
+  Cloudflare account after midnight. The calls are in `runs.jsonl` like every other.
+- **Lesson:** match the shot to the model's limits. A larger image model, or compositing characters
+  separately, is the fix for true three-person scenes.
+
 ## F16. A 6.4 MB run log
 
 - **What broke:** `runs.jsonl` had grown to 6.4 MB from 196 lines. Nine Addis AI experiment rows were

@@ -218,7 +218,7 @@
       ],
       "image_prompt": "Inside the home: {sweeper} leaning against the whitewashed wall right in front of {child}, its long handle towering far above her; she tilts her head back and looks up at its top in wonder",
       "motion_prompt": "She slowly looks up along the tall handle, eyes wide; gentle push-in.",
-      "seed": 1102,
+      "seed": 1202,
       "motion": {
         "method": "wan",
         "kenburns": "push_in"
@@ -302,12 +302,11 @@
       "size": "wide",
       "duration_s": 7,
       "characters": [
-        "grandmother",
         "child"
       ],
-      "image_prompt": "Outside the house gate: {grandmother}, wearing {mourning_attire}, walking ahead down the street with her back to the camera; a few steps behind her, {child} stepping out of the gate carrying {sweeper} on her right shoulder, the handle resting on the shoulder and the bristle head behind her",
+      "image_prompt": "Outside the house gate: {child} in the foreground, stepping out of the gate and carrying {sweeper} on her right shoulder, the handle resting on the shoulder and the bristle head behind her. Far ahead down the street, small in the distance, an elderly woman in a long black dress and black veil walking away with her back to the camera",
       "motion_prompt": "The grandmother walks away down the street; the girl follows with the broom on her shoulder; the camera stays still.",
-      "seed": 1106,
+      "seed": 1306,
       "motion": {
         "method": "wan",
         "kenburns": "pan_right"
@@ -327,7 +326,7 @@
         "grandmother",
         "child"
       ],
-      "image_prompt": "Wide view of a grey asphalt road: {grandmother}, wearing {mourning_attire}, leading the way across the road; a little behind her, {child} crossing after her, carrying {sweeper} on her right shoulder, the long handle resting on the shoulder and the bristle head behind her",
+      "image_prompt": "Two people crossing a wide grey asphalt road. On the left, ahead, {grandmother}, wearing {mourning_attire}, leading the way, her hands empty. On the right, a few steps behind her, {child} crossing after her, carrying {sweeper} on her right shoulder, the long handle resting on the shoulder and the bristle head behind her",
       "motion_prompt": "Both walk across the road, the girl a few steps behind; the camera stays high and still.",
       "seed": 1207,
       "motion": {
@@ -350,7 +349,7 @@
       ],
       "image_prompt": "Inside a dim, quiet house of mourning: {grandmother}, wearing {mourning_attire}, sitting on a low bench among mourning women dressed like her in long black dresses and black veils, all the other women seen only from behind so their faces are not visible; sombre, respectful, soft diffused light",
       "motion_prompt": "The women sit quietly; the grandmother lowers her eyes; fixed camera.",
-      "seed": 1108,
+      "seed": 1208,
       "motion": {
         "method": "wan",
         "kenburns": "push_in"
@@ -414,12 +413,11 @@
       "duration_s": 7,
       "characters": [
         "grandmother",
-        "aunt",
         "child"
       ],
-      "image_prompt": "Outside the house of mourning in warm daylight: {grandmother}, wearing {mourning_attire}, and {aunt} both laughing warmly, the grandmother with her hand over her mouth, beside {child}, who proudly holds {sweeper}",
-      "motion_prompt": "The two women laugh, shoulders shaking gently; slow push-in.",
-      "seed": 1111,
+      "image_prompt": "Two people outside the house of mourning in warm daylight. On the left, {grandmother}, wearing {mourning_attire}, laughing warmly with her hand over her mouth. On the right, {child}, proudly holding {sweeper} upright",
+      "motion_prompt": "The grandmother laughs, shoulders shaking gently; slow push-in.",
+      "seed": 1211,
       "motion": {
         "method": "wan",
         "kenburns": "push_in"
@@ -435,10 +433,8 @@
       "reason": "The motif returns as a tribute: Grandma is gone, but the sweeper and the laughter remain.",
       "size": "insert",
       "duration_s": 8,
-      "characters": [
-        "grandmother_home"
-      ],
-      "image_prompt": "Inside the grandmother's home in warm late-afternoon golden light: {sweeper} leaning against the whitewashed wall, and beside it on the wall a framed portrait photograph of {grandmother_home}, wearing {everyday_attire}; a folded shawl on a small wooden stool; quiet and tender",
+      "characters": [],
+      "image_prompt": "The grandmother's empty home in warm late-afternoon golden light, with no people in the room: {sweeper} leaning against the whitewashed wall; beside it, hanging on the wall, a small framed portrait photograph of an old woman with white-grey hair and a white shawl, smiling gently; a folded shawl on a small wooden stool; quiet and tender",
       "motion_prompt": "Golden light slowly fades; very slow push-in toward the portrait.",
       "seed": 1112,
       "motion": {

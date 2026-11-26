@@ -49,8 +49,9 @@ def test_face_from_adds_the_face_image_before_the_clothes_image(board):
 
 
 def test_clothes_image_is_dropped_first_at_the_reference_cap(board):
-    # s11 needs five images (face, clothes, aunt, girl, broom); only the optional clothes image goes
-    s = shot(board, "s11")
+    # five images (face, clothes, aunt, girl, broom) for a 4-image model: only the optional clothes image goes
+    s = copy.deepcopy(shot(board, "s11"))
+    s["characters"] = ["grandmother", "aunt", "child"]
     refs = keyframes.shot_references(board, s)
     assert ref_ids(refs) == ["grandmother_home", "aunt", "child", "sweeper"]
     prompt = keyframes.keyframe_prompt(board, s, refs)

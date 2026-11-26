@@ -97,7 +97,7 @@ under the −1 dBTP limit.
 
 ## 5. What failed and what it taught me
 
-FAILURES.md has 16 entries. Four shaped the system:
+FAILURES.md has 17 entries. Four shaped the system:
 
 - **Free-tier caps hit on the same day** (F7, F14). Gemini TTS allows 10 requests a day and Cloudflare
   10,000 neurons. Batching narration by scene cut 12 requests to 3. When the image cap was hit, the
@@ -128,11 +128,11 @@ memory of the day (DESIGN.md has the full table). The two audience tests:
 
 **Test 2, near-final cut**: ⟪who, how many, what they said⟫ → changes: ⟪…⟫
 
-**Storyboard v7, not yet rendered.** Grandma visibly leads the walk and the road crossing, the aunt
-joins the laughter in s11, s12 shows Grandma's portrait beside the sweeper, and s05 shows the girl
-actually reaching for the handle. v7 also adds `face_from`, so one person keeps the same face across two
-outfits. It is committed on the branch `feat/storyboard-v7` and needs about 1,400 image neurons, which
-the daily cap made unavailable before the deadline.
+**Storyboard v7: keyframes made, film not yet re-rendered.** Grandma waves goodbye to the watching
+girl, the girl reaches for the handle, Grandma leads the walk and the road crossing, and s12 shows
+Grandma's portrait beside the sweeper. v7 also adds `face_from`, so one person keeps the same face across
+two outfits. Three-person shots failed on every seed, because the image model merges people, so s06 and
+s11 were simplified to at most two people (F17). The published film is still v6.1.
 
 ## 7. Ethics
 
