@@ -68,8 +68,8 @@ def ffmpeg_binary() -> str:
     return found
 
 
-def run_ffmpeg(args: list[str], *, step: str, cwd: Path | None = None) -> str:
-    """Run FFmpeg, log its latency as an assembly step, and return stderr (where FFmpeg reports)."""
+def run_ffmpeg(args: list[str], *, step: str, cwd: Path | None = None, stage: str = STAGE) -> str:
+    """Run FFmpeg, log its latency as a pipeline step, and return stderr (where FFmpeg reports)."""
 
     def invoke() -> str:
         done = subprocess.run(  # check=False: we raise our own error that includes FFmpeg's stderr
@@ -80,7 +80,7 @@ def run_ffmpeg(args: list[str], *, step: str, cwd: Path | None = None) -> str:
             raise RuntimeError(f"ffmpeg {step} failed:\n{done.stderr[-2000:]}")
         return done.stderr
 
-    return call_model(invoke, stage=STAGE, model="ffmpeg", params={"step": step}, attempts=1)
+    return call_model(invoke, stage=stage, model="ffmpeg", params={"step": step}, attempts=1)
 
 
 def build_timeline(storyboard: dict[str, Any], voice: dict[str, Path]) -> list[Slot]:
@@ -270,18 +270,51 @@ def write_srt(slots: list[Slot], out: Path) -> None:
     out.write_text("\n".join(blocks), encoding="utf-8")
 
 
-def render_radio(aspect: str, total_s: float, audio: Path, subs: Path, out: Path) -> None:
+def music_source(storyboard: dict[str, Any], total_s: float, work: Path) -> Path:
+    """The chosen ACE-Step score if it exists, otherwise a placeholder drone (the radio-cut temp track)."""
+    seed = storyboard["music"]["chosen_seed"]
+    chosen = OUTPUTS / "music" / f"score-{seed}.wav"
+    if seed is not None and chosen.exists():
+        return chosen
+    placeholder_music(total_s, work / "music.wav")
+    return work / "music.wav"
+
+
+def build_picture(storyboard: dict[str, Any], slots: list[Slot], aspect: str, card_s: float, work: Path) -> Path:
+    """One clip per shot at its slot length, then a black end-card clip, joined without re-encoding."""
+    from pipeline import shots
+
+    size = ASPECTS[aspect]["size"]
+    by_id = {s["id"]: s for s in storyboard["shots"]}
+    clips = [shots.render_clip(storyboard, by_id[slot.shot_id], slot.length_s, size) for slot in slots]
+    card = shots.SHOTS_DIR / f"{size[0]}x{size[1]}" / f"endcard-{card_s:.2f}.mp4"
+    if not card.exists():
+        run_ffmpeg(["-f", "lavfi", "-i", f"color=c=black:s={size[0]}x{size[1]}:r={FPS}:d={card_s:.3f}",
+                    *shots.ENCODE, str(card)], step=f"end_card_{aspect}", stage="shots")
+    listing = work / f"picture_{aspect}.txt"
+    listing.write_text("".join(f"file '{p.resolve().as_posix()}'\n" for p in [*clips, card]), encoding="utf-8")
+    picture = work / f"picture_{aspect}.mp4"
+    run_ffmpeg(["-f", "concat", "-safe", "0", "-i", str(listing), "-c", "copy", str(picture)],
+               step=f"join_shots_{aspect}")
+    return picture
+
+
+def render_film(aspect: str, total_s: float, audio: Path, subs: Path, picture: Path | None, out: Path) -> None:
+    """Final encode: picture (or black, for the radio cut) + mastered audio + burned subtitles and end card."""
     width, height = ASPECTS[aspect]["size"]
+    video_in = (["-i", str(picture.resolve())] if picture
+                else ["-f", "lavfi", "-i", f"color=c=black:s={width}x{height}:r={FPS}:d={total_s:.3f}"])
     run_ffmpeg(
         [
-            "-f", "lavfi", "-i", f"color=c=black:s={width}x{height}:r={FPS}:d={total_s:.3f}",
-            "-i", str(audio),
+            *video_in,
+            "-i", str(audio.resolve()),
+            "-map", "0:v", "-map", "1:a",
             "-vf", f"subtitles={subs.name}",
-            "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-pix_fmt", "yuv420p", "-r", str(FPS),
+            "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p", "-r", str(FPS),
             "-c:a", "aac", "-b:a", "192k", "-ar", str(MIX_RATE),
-            "-shortest", "-movflags", "+faststart", str(out),
+            "-t", f"{total_s:.3f}", "-movflags", "+faststart", str(out.resolve()),
         ],
-        step=f"render_radio_{aspect}",
+        step=f"render_{'film' if picture else 'radio'}_{aspect}",
         cwd=subs.parent,  # the subtitles filter gets a bare file name, avoiding Windows path escaping
     )
 
@@ -292,20 +325,19 @@ def run(storyboard: dict[str, Any], *, radio: bool, aspects: list[str]) -> list[
     missing = [shot_id for shot_id, path in voice.items() if not path.exists()]
     if missing:
         raise RuntimeError(f"narration missing for {missing}; run the narration stage first")
-    if not radio:
-        raise NotImplementedError("picture assembly lands with the keyframes and shots stages; use --radio")
 
-    work = WORK / "radio"
+    work = WORK / ("radio" if radio else "film")
     work.mkdir(parents=True, exist_ok=True)
     FILM_DIR.mkdir(parents=True, exist_ok=True)
 
     slots = build_timeline(storyboard, voice)
-    total_s = round(slots[-1].start_s + slots[-1].length_s + storyboard["end_card"]["duration_s"], 3)
+    card_s = storyboard["end_card"]["duration_s"]
+    total_s = round(slots[-1].start_s + slots[-1].length_s + card_s, 3)
     build_voice_track(slots, voice, total_s, work / "voice.wav")
-    placeholder_music(total_s, work / "music.wav")
+    music = music_source(storyboard, total_s, work)
     envelope = envelope_expr(envelope_points(slots, music_levels(storyboard), total_s))
     bed_lufs = storyboard["music"].get("bed_lufs", DEFAULT_BED_LUFS)
-    mix(work / "voice.wav", work / "music.wav", envelope, total_s, work / "mix.wav", bed_lufs)
+    mix(work / "voice.wav", music, envelope, total_s, work / "mix.wav", bed_lufs)
     loudness = master(work / "mix.wav", work / "master.wav")
     write_srt(slots, FILM_DIR / "subtitles_en.srt")
 
@@ -313,8 +345,9 @@ def run(storyboard: dict[str, Any], *, radio: bool, aspects: list[str]) -> list[
     for aspect in aspects:
         subs = work / f"subs_{aspect}.ass"
         write_subtitles(slots, storyboard["end_card"], total_s, aspect, subs)
-        out = FILM_DIR / f"radio_cut_{aspect}.mp4"
-        render_radio(aspect, total_s, work / "master.wav", subs, out)
+        picture = None if radio else build_picture(storyboard, slots, aspect, card_s, work)
+        out = FILM_DIR / f"{'radio_cut' if radio else 'film'}_{aspect}.mp4"
+        render_film(aspect, total_s, work / "master.wav", subs, picture, out)
         outputs.append(out)
 
     (work / "timeline.json").write_text(
