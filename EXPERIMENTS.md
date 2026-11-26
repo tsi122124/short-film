@@ -3,6 +3,42 @@
 Each entry: hypothesis → change → result, with the evidence (log lines in `runs.jsonl`, files in
 `outputs/`). One thing changes per experiment; seeds and inputs stay fixed where they matter.
 
+## E5. Do reference images keep characters consistent across shots?
+
+- **Hypothesis:** attaching approved reference images (FLUX.2 klein `input_image_0..3`) to every keyframe
+  keeps the same girl, grandmother and sweeper across 12 shots without training anything.
+- **Change:** a reference sheet first (3 candidates per character, I chose one), then every keyframe
+  generated with the references of everyone in it, and the prompt naming each one ("the girl looks
+  exactly like the one in image 0").
+- **Result:**
+  - The girl stayed recognisable in all 12 shots (braids, yellow dress, socks, shoes), and so did the
+    sweeper's shape. Grandma's face varied more.
+  - With four references in one shot (s01), the model mixed people up: two grandmothers and no girl.
+    Explicit positions ("on the left… in the middle… on the right, a small girl…") fixed it.
+  - As the narrator, I still judged the faces not identical in every shot. That residual drift is the
+    case for a LoRA or a larger model as ceiling work.
+
+## E6. Edit an approved image, or generate fresh?
+
+- **Hypothesis:** editing an image I already liked (base image + instruction) keeps the face while
+  changing the clothes.
+- **Result:**
+  - Edits kept the face, but also kept the old garment's drape: the lace and veil shapes survived
+    "replace the netela".
+  - Fresh generation fixed the clothing but changed the face.
+  - What worked: fresh generation for the outfit, then a **two-image edit** (image 0 = outfit,
+    image 1 = face), then **single-change edits**.
+  - Edits stop being useful after 2–3 generations (F11).
+
+## E7. Should references include the setting?
+
+- **Hypothesis:** references should show only people and objects. If the street setting is in their
+  prompt, changing the streets regenerates (and changes) faces that were already approved.
+- **Change:** split `style_block` (the look) from `setting` (the place). References get the look only,
+  and approved references are pinned by file (`reference.approved`).
+- **Result:** references came out on plain backgrounds. When I changed the neighbourhood to modern
+  asphalt streets, my approved child and sweeper images stayed exactly as chosen.
+
 ## E1. Which TTS voice sounds like natural Amharic?
 
 - **Hypothesis:** a teammate on Slack reported that Addis AI, an Ethiopian provider with native Amharic

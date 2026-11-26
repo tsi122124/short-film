@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 5,
   "title": {
     "am": "መጥረጊያው",
     "en": "The Sweeper"
@@ -8,62 +8,86 @@
   "audience": "Ethiopian family members and neighbours who know the story, and young Ethiopians at home and in the diaspora who grew up close to a grandmother. They watch on a phone, vertically, on LinkedIn, WhatsApp and Telegram.",
   "intent": "Viewers laugh warmly at a child's innocent mistake, feel the grandmother's love and the neighbourly custom of comforting the bereaved, and end the film thinking of their own grandmother.",
   "language": "am",
-  "style_block": "Warm hand-painted gouache illustration, soft visible brush texture, gentle paper grain, muted earthy palette of ochre, terracotta, cream white and eucalyptus green, soft natural light, an Ethiopian city neighbourhood in the 2000s, simple uncluttered composition with the main subject centred in the frame, no text, no lettering, no watermark",
+  "style_block": "Warm hand-painted gouache illustration, soft visible brush texture, gentle paper grain, muted earthy palette of ochre, terracotta, cream white and eucalyptus green, soft natural light, every person is a Habesha Ethiopian with brown skin, simple uncluttered composition with the main subject centred in the frame, no text, no lettering, no watermark",
+  "setting": "Set in a modest, modern Ethiopian city neighbourhood in the 2000s: simple one-storey houses of plastered concrete block painted faded blue, cream and ochre, corrugated-iron roofs, painted metal compound gates, eucalyptus trees, power poles, and grey asphalt roads with blue-and-white minibus taxis",
+  "interior_setting": "Inside a modest Ethiopian family home in the 2000s: whitewashed plastered walls, a cement floor with a woven mat, a colourful woven mesob basket, low wooden stools, a small window letting in warm daylight, simple wooden furniture",
   "characters": [
     {
       "id": "child",
       "role": "The narrator as an eight-year-old",
       "label": "the girl",
-      "description": "an eight-year-old Ethiopian girl with warm brown skin, a round face, short black curly hair in two small puffs, big curious eyes, wearing a simple faded yellow cotton dress",
+      "description": "a slim eight-year-old Habesha Ethiopian schoolgirl with warm brown skin, a bright oval face and big curious eyes, her black hair parted in the middle and neatly braided in cornrows running from front to back on both sides, wearing a well-made knee-length yellow cotton dress with a white rounded collar and small embroidered flowers, white socks and black buckle shoes",
       "real_person": true,
       "consent_id": "C1",
       "reference": {
-        "prompt": "Character reference sheet: {child}, full-length, standing, front view, calm friendly expression, plain warm cream background, even soft light",
-        "seed": null
+        "prompt": "Character reference sheet: {child}, calm friendly expression, full-length, standing, front view, isolated on a plain warm cream background, no street, no buildings, even soft light",
+        "seed": 3102,
+        "approved": "assets/approved/child.png"
       }
     },
     {
       "id": "grandmother",
-      "role": "The narrator's late grandmother",
+      "role": "The narrator's late grandmother, in mourning clothes (s04-s11)",
       "label": "the grandmother",
-      "description": "a short, plump, motherly elderly Ethiopian woman in her seventies with warm brown skin, a kind lined face and white-grey hair",
+      "description": "a short, plump, motherly elderly Habesha Ethiopian woman in her seventies with deep dark-brown skin, Ethiopian highland facial features, a round kind face with soft wrinkles and a warm smile, and white-grey hair",
       "real_person": true,
       "consent_id": "C2",
       "reference": {
-        "prompt": "Character reference sheet: {grandmother}, wearing {mourning_attire}, full-length, standing, front view, calm friendly expression, plain warm cream background, even soft light",
-        "seed": null
+        "prompt": "Edit image 0. Make two changes only: give her exactly the face of the woman in image 1, and shorten the black veil so it ends at her waist. Keep the veil wrapped around her head and neck, her long-sleeved long black dress, shoes, pose and the plain cream background exactly the same",
+        "base_image": [
+          "assets/approved/grandmother_mourning_v8.png",
+          "assets/approved/grandmother_home.png"
+        ],
+        "seed": 3102,
+        "approved": "assets/approved/grandmother_mourning_v8.png"
+      }
+    },
+    {
+      "id": "grandmother_home",
+      "role": "The same grandmother at home, everyday clothes (s01)",
+      "label": "the grandmother",
+      "description": "a short, plump, motherly elderly Habesha Ethiopian woman in her seventies with deep dark-brown skin, Ethiopian highland facial features, a round kind face with soft wrinkles and a warm smile, and white-grey hair",
+      "real_person": true,
+      "consent_id": "C2",
+      "reference": {
+        "prompt": "Edit image 0. Change only one thing: lengthen her patterned dress so it reaches her ankles and fully covers her calves. Keep her face, white-grey hair, cream shawl, shoes, pose and the plain cream background exactly the same",
+        "seed": 3102,
+        "approved": "assets/approved/grandmother_home.png"
       }
     },
     {
       "id": "aunt",
       "role": "The narrator's aunt, for whom the sweeper was bought",
       "label": "the aunt",
-      "description": "an Ethiopian woman of about forty with warm brown skin, black hair tied back, medium height and medium build, wearing a simple everyday dress",
+      "description": "a Habesha Ethiopian woman of about forty with warm brown skin, black hair neatly tied back, medium height and medium build, a warm smile, wearing stylish, well-fitted casual clothes: a soft cream blouse with delicate embroidery at the collar, an elegant deep-teal A-line midi skirt, and polished low-heeled leather shoes",
       "real_person": true,
       "consent_id": "C3",
       "reference": {
-        "prompt": "Character reference sheet: {aunt}, full-length, standing, front view, calm friendly expression, plain warm cream background, even soft light",
-        "seed": null
+        "prompt": "Edit image 0: keep this woman's face, smile, hairstyle, skin tone and figure exactly, and change only her clothes and shoes: {aunt}. full-length, standing, front view, isolated on a plain warm cream background, no street, no buildings, even soft light",
+        "seed": 3102,
+        "approved": "assets/approved/aunt.png"
       }
     }
   ],
   "props": [
     {
       "id": "sweeper",
-      "description": "a brand-new long wall broom about twice the height of an eight-year-old child, with a long plain natural-wood handle and a fluffy corn-silk-coloured, pale cream-yellow bristle head",
+      "description": "a brand-new wall broom with a very long, thin, plain natural-wood handle about two and a half metres long, much taller than an adult, and a fluffy corn-silk-coloured, pale cream-yellow bristle head",
       "label": "the broom",
       "reference": {
-        "prompt": "Object reference: {sweeper}, the whole broom shown upright from end to end, plain warm cream background, even soft light",
-        "seed": null
+        "prompt": "Edit image 0: the same broom with the same corn-silk bristle head and wooden handle, but with a much longer handle: {sweeper}. The whole broom shown upright from end to end, isolated on a plain warm cream background, even soft light",
+        "base_image": "assets/approved/sweeper_v1.png",
+        "seed": 3102,
+        "approved": "assets/approved/sweeper.png"
       }
     },
     {
       "id": "everyday_attire",
-      "description": "a long cotton habesha dress with a white netela shawl wrapped crosswise over her chest and shoulders"
+      "description": "a smart casual cotton dress with a tasteful small patterned print in warm earthy colours, long enough to cover her calves, neat low-heeled brown leather shoes, and a large soft cream shawl draped over her shoulders and covering the upper half of her body"
     },
     {
       "id": "mourning_attire",
-      "description": "a long plain black dress and a white netela shawl worn the traditional mourning way, turned down so its decorated border is hidden"
+      "description": "Ethiopian mourning clothes: a long plain black dress with long sleeves and a soft black veil wrapped snugly around her head and neck, its front pulled across under her chin and across her chest, its end thrown over her left shoulder, the veil ending at her waist"
     }
   ],
   "models": {
@@ -74,8 +98,8 @@
     "music": "ACE-Step-1.5-turbo"
   },
   "image": {
-    "width": 1280,
-    "height": 1280,
+    "width": 1024,
+    "height": 1024,
     "steps": 4
   },
   "narration": {
@@ -161,15 +185,16 @@
       "beat": "The new sweeper, bought for my aunt",
       "reason": "Introduces all three people and the object the story turns on: the sweeper is new, it was bought for my aunt, and I cannot stop watching it.",
       "size": "wide",
+      "location": "interior",
       "duration_s": 7,
       "characters": [
-        "grandmother",
+        "grandmother_home",
         "aunt",
         "child"
       ],
-      "image_prompt": "Wide view inside a modest Ethiopian home with whitewashed walls: {aunt} reaching up to sweep a high corner of the wall with {sweeper}, while {grandmother}, wearing {everyday_attire}, stands beside her smiling proudly, and at the edge of the room {child} watches the broom wide-eyed; warm morning light from a window",
+      "image_prompt": "Inside the home, three people in one room: on the left, an elderly grandmother, {grandmother_home}, wearing {everyday_attire}, smiling proudly; in the middle, the aunt, {aunt}, stretching up to sweep the high corner of the whitewashed wall with {sweeper}; on the right, a small eight-year-old girl, {child}, watching the broom wide-eyed; warm morning light from the window",
       "motion_prompt": "The aunt sweeps the broom slowly up the wall; the camera stays still.",
-      "seed": 1101,
+      "seed": 1201,
       "motion": {
         "method": "kenburns",
         "kenburns": "pan_right"
@@ -184,11 +209,12 @@
       "beat": "Fixation: whose sweeper will it be?",
       "reason": "Makes the fixation feel real and plants the question that drives the story: whose sweeper is it going to be?",
       "size": "close",
+      "location": "interior",
       "duration_s": 6,
       "characters": [
         "child"
       ],
-      "image_prompt": "Close-up of {child} staring at the fluffy corn-silk bristle head of a new broom, almost hypnotised, chin resting on her hands, lips slightly parted, eyes full of longing and curiosity, soft window light on her face",
+      "image_prompt": "Inside the home: close-up of {child} staring at the fluffy bristle head of {sweeper} leaning against the whitewashed wall, almost hypnotised, chin resting on her hands, eyes full of longing and curiosity, soft window light on her face",
       "motion_prompt": "She blinks slowly, never looking away; the camera pushes in very slightly.",
       "seed": 1102,
       "motion": {
@@ -205,11 +231,12 @@
       "beat": "Still fixated the next morning",
       "reason": "Shows the fixation lasted overnight, so the mishearing that follows feels inevitable.",
       "size": "medium",
+      "location": "interior",
       "duration_s": 5,
       "characters": [
         "child"
       ],
-      "image_prompt": "Medium shot the next morning: {child} sitting on a low wooden stool across the room, hugging her knees, gazing at {sweeper} leaning against the whitewashed wall in a beam of morning sunlight",
+      "image_prompt": "Inside the home the next morning: {child} sitting on a low wooden stool, hugging her knees, gazing at {sweeper} leaning against the whitewashed wall in a beam of morning sunlight",
       "motion_prompt": "She tilts her head, still gazing at the broom; dust motes drift in the sunbeam; fixed camera.",
       "seed": 1103,
       "motion": {
@@ -226,11 +253,12 @@
       "beat": "Grandma leaves to comfort the neighbours",
       "reason": "The heritage heart of the film: the mourning dress, the netela turned down, the custom of comforting grieving neighbours, and the goodbye the child is about to mishear.",
       "size": "medium",
+      "location": "interior",
       "duration_s": 10,
       "characters": [
         "grandmother"
       ],
-      "image_prompt": "Medium shot of {grandmother}, wearing {mourning_attire}, at an open wooden door, half turned back toward the room with a gentle wave, bright street light behind her",
+      "image_prompt": "Inside the home at the open wooden front door: {grandmother}, wearing {mourning_attire}, half turned back toward the room with a gentle wave goodbye, bright daylight outside the door behind her",
       "motion_prompt": "She waves once and turns toward the street; fixed camera.",
       "seed": 1104,
       "motion": {
@@ -247,11 +275,12 @@
       "beat": "The misunderstanding",
       "reason": "The comic premise: her head is so full of the sweeper that a goodbye sounds like an order to bring it.",
       "size": "medium_close",
+      "location": "interior",
       "duration_s": 6,
       "characters": [
         "child"
       ],
-      "image_prompt": "Medium close-up of {child} standing beside {sweeper}, looking up at it with a serious, determined little face, as if she has just been given a very important job",
+      "image_prompt": "Inside the home: {child} standing beside {sweeper} leaning against the whitewashed wall, looking up at it with a serious, determined little face, as if she has just been given a very important job",
       "motion_prompt": "The girl nods to herself and reaches for the handle; fixed camera.",
       "seed": 1105,
       "motion": {
@@ -294,9 +323,9 @@
       "characters": [
         "child"
       ],
-      "image_prompt": "High-angle extreme wide view of a grey asphalt road, {child} small in the centre of the crossing, carrying {sweeper} on her shoulder, a few minibuses parked far down the road",
+      "image_prompt": "High-angle wide view of a grey asphalt road: {child} small in the middle of the crossing, carrying {sweeper} on her right shoulder, the very long broom clearly visible, its handle angled diagonally across the frame and its pale bristle head behind her, a few minibuses parked far down the road",
       "motion_prompt": "The girl takes small careful steps across the road; the camera stays high and still.",
-      "seed": 1107,
+      "seed": 1207,
       "motion": {
         "method": "kenburns",
         "kenburns": "pan_left"
@@ -336,9 +365,9 @@
       "characters": [
         "child"
       ],
-      "image_prompt": "View from inside a dim room toward a bright open doorway: {child} standing in the doorway in silhouette with {sweeper} on her shoulder, the broom angled diagonally across the bright doorway",
+      "image_prompt": "View from inside a dim room toward a bright open doorway: {child} standing in the doorway with {sweeper} resting on her right shoulder, the very long broom clearly visible, its handle angled diagonally across the bright doorway and its pale bristle head sticking out behind her",
       "motion_prompt": "The girl stands still in the doorway; very slow push-in.",
-      "seed": 1109,
+      "seed": 1209,
       "motion": {
         "method": "wan",
         "kenburns": "push_in"

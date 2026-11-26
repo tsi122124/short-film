@@ -21,3 +21,6 @@ outputs/**/*.part
 .DS_Store
 Thumbs.db
 .vscode/
+
+# Reference photos shared privately with permission; never published
+assets/private/

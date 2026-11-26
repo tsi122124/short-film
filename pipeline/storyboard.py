@@ -129,18 +129,23 @@ def require_consent(storyboard: dict[str, Any], character_ids: list[str], ethics
         raise ConsentError("No granted consent in ETHICS.md for: " + ", ".join(blocked))
 
 
-def fill_template(storyboard: dict[str, Any], template: str) -> str:
-    """Fill {character}/{prop} placeholders with their fixed descriptions and append the style block.
+def fill_template(storyboard: dict[str, Any], template: str, location: str | None = "exterior") -> str:
+    """Fill {character}/{prop} placeholders with their fixed descriptions, then append setting and style.
 
     Every prompt goes through here, so a character is described with exactly the same words everywhere.
+    location picks the setting: "exterior" (streets), "interior" (the home), or None for reference images,
+    which fix how people and objects look, not where they are. An indoor shot must never get the street
+    setting, which once overrode "inside a home" in the shot's own prompt.
     """
     descriptions = {c["id"]: c["description"] for c in storyboard["characters"]}
     descriptions.update({p["id"]: p["description"] for p in storyboard["props"]})
-    return f"{template.format(**descriptions)}. {storyboard['style_block']}"
+    setting_text = {"exterior": storyboard["setting"], "interior": storyboard.get("interior_setting")}.get(location)
+    setting = f" {setting_text}." if setting_text else ""
+    return f"{template.format(**descriptions)}.{setting} {storyboard['style_block']}"
 
 
 def expand_prompt(storyboard: dict[str, Any], shot: dict[str, Any]) -> str:
-    return fill_template(storyboard, shot["image_prompt"])
+    return fill_template(storyboard, shot["image_prompt"], shot.get("location", "exterior"))
 
 
 def main() -> None:
