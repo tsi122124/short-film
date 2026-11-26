@@ -73,6 +73,59 @@
 - **Lesson:** a native-speaker listen catches what no metric does. Each fix cost one request because a
   changed line regenerates only its own scene.
 
+## F9. "Ethiopian" came out Mediterranean
+
+- **What broke:** the first reference sheet showed Spanish- or Mexican-looking streets, a grandmother with
+  a Latin face, and a lace scarf instead of a netela. "An Ethiopian city neighbourhood" was too vague a
+  label for the model.
+- **Fix:** concrete visual words instead of labels:
+  - "Habesha Ethiopian, dark brown skin"
+  - "corrugated-iron roofs, plastered concrete-block houses, eucalyptus trees, painted metal gates,
+    asphalt roads with blue-and-white minibuses"
+  - Clothing described from photos I provided. One garment photo was used directly, with its owner's
+    permission and cropped to no face (ETHICS.md).
+
+## F10. The street setting overrode "inside the home"
+
+- **What broke:** keyframes s01–s04, which happen inside the house, came out on the street.
+- **Root cause:** the global `setting` (streets) was appended to every keyframe prompt, and outweighed
+  the shot's own "inside the home".
+- **Fix:** each shot has a `location`. Interior shots get `interior_setting` (the home), exterior shots
+  get the street, and reference images get neither. A regression test covers it.
+
+## F11. Image edits: one change at a time, and no chains
+
+- **What broke:**
+  - Edits asking for several changes applied some and silently ignored others: the lace survived, and
+    the crossed veil was missed.
+  - "Lengthen her dress" and "shorten the veil" were ignored in every candidate.
+  - An edit of an edit of an edit came out blotchy and greenish (generation loss).
+- **Fix:** one change per edit. Stop chaining once quality drops. Pin the approved image
+  (`reference.approved`) so it is never regenerated, and put remaining details into the keyframe prompt
+  instead.
+
+## F12. A 10,000-neuron daily image budget, and a false-positive safety filter
+
+- **What broke:**
+  - Reference iterations used about 8,000 of Cloudflare's 10,000 free daily neurons before any keyframe
+    existed. The allowance resets at 03:00 EAT, after the deadline.
+  - Separately, Cloudflare's output filter rejected an elderly woman in a black veil
+    (`"Your output has been flagged"`, code 3030), which stopped the whole run.
+- **Fix:**
+  - Keyframes at 1024² instead of 1280² (≈120 instead of ≈200 neurons each).
+  - Fewer candidates per round (`--candidates`).
+  - A flagged *candidate* is logged and the next seed tried; a flagged golden image or keyframe still
+    stops the run.
+  - Neuron estimates are logged per call (`neurons_est`, `list_price_usd`).
+
+## F13. Keyframes that missed their story point
+
+- **What broke:** s07 ("crossing the asphalt", the image the family laughs about most) had no sweeper at
+  all, and in s09 (the reveal) the sweeper was barely visible.
+- **Fix:** put the prop first in the prompt, together with its exact pose ("on her right shoulder,
+  clearly visible, handle diagonal"), and use a new seed. The s09 retake drew a bristle head at both ends;
+  the 9:16 centre crop hides the second one, and the 16:9 version shows it.
+
 ## F6. LinkedIn has no AI-label toggle
 
 - **What broke:** the brief asks to post with the platform's AI label switched on. LinkedIn's help page

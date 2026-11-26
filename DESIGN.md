@@ -49,6 +49,9 @@ shock, then laughed, and sent me and the sweeper home with my aunt.
 | v3.1 | s12 now ends with a refrain: «…ያስቃል። አሁንም ያስቃል።» ("It still does.") | My own listen of the radio cut: the TTS mispronounced the final «ያስቃል». The refrain also gives the ending a rhythm. See FAILURES.md F8 |
 | v3.2 | s12 opens «ውዷ አያቴ…» ("My dear grandmother…") | My own listen: «አያቴ» was mispronounced at the start of s12 only. The extra word fixed the reading and warmed the tribute (F8) |
 | v3.3 | Music bed raised 6 dB (`music.bed_lufs` −26 → −20 LUFS, still ducked under the voice) | My own listen: the score was too quiet to carry any feeling |
+| v4 | Concrete Ethiopian visual language: Habesha features and brown skin; me as a clearly 8-year-old girl with middle-parted braids and a well-made dress | My review of the first reference sheet: Mediterranean streets and faces, I looked 5, and the clothes looked cheap (FAILURES.md F9) |
+| v5 | Grandma has two looks: at home, a patterned dress with a shawl; for the house of mourning, a black dress with a black veil wrapped around her head and neck, crossing her chest to the shoulder. My aunt wears casual everyday clothes. The neighbourhood is modern, with asphalt roads | My corrections and photos of how the mourning veil is worn. A netela with its ጥለት could not be drawn reliably, so I chose the black veil, which is also how women dress for a house of mourning |
+| v6 | s01–s05 take place inside the home (`location: interior`) | My review: the home scenes must be inside the house (F10) |
 
 ## User test 1: the radio cut
 
