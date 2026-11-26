@@ -1,0 +1,393 @@
+{
+  "version": 3,
+  "title": {
+    "am": "መጥረጊያው",
+    "en": "The Sweeper"
+  },
+  "logline": "An eight-year-old, fixated on the brand-new wall sweeper her grandmother bought for her aunt, mishears a goodbye and carries it across an asphalt road into a neighbour's house of mourning, a moment her family still laughs about.",
+  "audience": "Ethiopian family members and neighbours who know the story, and young Ethiopians at home and in the diaspora who grew up close to a grandmother. They watch on a phone, vertically, on LinkedIn, WhatsApp and Telegram.",
+  "intent": "Viewers laugh warmly at a child's innocent mistake, feel the grandmother's love and the neighbourly custom of comforting the bereaved, and end the film thinking of their own grandmother.",
+  "language": "am",
+  "style_block": "Warm hand-painted gouache illustration, soft visible brush texture, gentle paper grain, muted earthy palette of ochre, terracotta, cream white and eucalyptus green, soft natural light, an Ethiopian city neighbourhood in the 2000s, simple uncluttered composition with the main subject centred in the frame, no text, no lettering, no watermark",
+  "characters": [
+    {
+      "id": "child",
+      "role": "The narrator as an eight-year-old",
+      "label": "the girl",
+      "description": "an eight-year-old Ethiopian girl with warm brown skin, a round face, short black curly hair in two small puffs, big curious eyes, wearing a simple faded yellow cotton dress",
+      "real_person": true,
+      "consent_id": "C1",
+      "reference": {
+        "prompt": "Character reference sheet: {child}, full-length, standing, front view, calm friendly expression, plain warm cream background, even soft light",
+        "seed": null
+      }
+    },
+    {
+      "id": "grandmother",
+      "role": "The narrator's late grandmother",
+      "label": "the grandmother",
+      "description": "a short, plump, motherly elderly Ethiopian woman in her seventies with warm brown skin, a kind lined face and white-grey hair",
+      "real_person": true,
+      "consent_id": "C2",
+      "reference": {
+        "prompt": "Character reference sheet: {grandmother}, wearing {mourning_attire}, full-length, standing, front view, calm friendly expression, plain warm cream background, even soft light",
+        "seed": null
+      }
+    },
+    {
+      "id": "aunt",
+      "role": "The narrator's aunt, for whom the sweeper was bought",
+      "label": "the aunt",
+      "description": "an Ethiopian woman of about forty with warm brown skin, black hair tied back, medium height and medium build, wearing a simple everyday dress",
+      "real_person": true,
+      "consent_id": "C3",
+      "reference": {
+        "prompt": "Character reference sheet: {aunt}, full-length, standing, front view, calm friendly expression, plain warm cream background, even soft light",
+        "seed": null
+      }
+    }
+  ],
+  "props": [
+    {
+      "id": "sweeper",
+      "description": "a brand-new long wall broom about twice the height of an eight-year-old child, with a long plain natural-wood handle and a fluffy corn-silk-coloured, pale cream-yellow bristle head",
+      "label": "the broom",
+      "reference": {
+        "prompt": "Object reference: {sweeper}, the whole broom shown upright from end to end, plain warm cream background, even soft light",
+        "seed": null
+      }
+    },
+    {
+      "id": "everyday_attire",
+      "description": "a long cotton habesha dress with a white netela shawl wrapped crosswise over her chest and shoulders"
+    },
+    {
+      "id": "mourning_attire",
+      "description": "a long plain black dress and a white netela shawl worn the traditional mourning way, turned down so its decorated border is hidden"
+    }
+  ],
+  "models": {
+    "text": "gemini-3.8-flash",
+    "tts": "gemini-3.8-flash-tts",
+    "image": "@cf/black-forest-labs/flux-2-klein-4b",
+    "video": "Wan-AI/Wan2.2-TI2V-5B-Diffusers",
+    "music": "ACE-Step-1.5-turbo"
+  },
+  "image": {
+    "width": 1280,
+    "height": 1280,
+    "steps": 4
+  },
+  "narration": {
+    "voice": "Sulafat",
+    "style": "natural conversational pace, warm and gentle, like a woman telling a funny family memory to people she loves",
+    "lead_in_s": 0.3,
+    "tail_s": 0.4
+  },
+  "music": {
+    "caption": "instrumental, gentle Ethiopian-inspired acoustic folk, plucked krar lyre melody, soft masinko bowed string, light hand drum, warm, playful and nostalgic, intimate sparse arrangement that leaves room for a narrator",
+    "bpm": 84,
+    "key": "C major",
+    "duration_s": 90,
+    "candidate_seeds": [
+      2101,
+      2102,
+      2103
+    ],
+    "chosen_seed": null,
+    "cues": [
+      {
+        "id": "m1",
+        "from_shot": "s01",
+        "to_shot": "s07",
+        "mood": "playful curiosity, light and bouncing",
+        "level": 1.0
+      },
+      {
+        "id": "m2",
+        "from_shot": "s08",
+        "to_shot": "s08",
+        "mood": "hush for the house of mourning",
+        "level": 0.35
+      },
+      {
+        "id": "m3",
+        "from_shot": "s09",
+        "to_shot": "s09",
+        "mood": "silence for the reveal at the door",
+        "level": 0.0
+      },
+      {
+        "id": "m4",
+        "from_shot": "s10",
+        "to_shot": "s12",
+        "mood": "warm, tender return of the theme",
+        "level": 1.0
+      }
+    ]
+  },
+  "end_card": {
+    "lines": [
+      "Made with AI",
+      "Narration: Gemini TTS | Images: FLUX.2 klein | Motion: Wan 2.2 | Music: ACE-Step 1.5",
+      "A true family story, in memory of my grandmother"
+    ],
+    "duration_s": 3
+  },
+  "shots": [
+    {
+      "id": "s01",
+      "beat": "The new sweeper, bought for my aunt",
+      "reason": "Introduces all three people and the object the story turns on: the sweeper is new, it was bought for my aunt, and I cannot stop watching it.",
+      "size": "wide",
+      "duration_s": 7,
+      "characters": [
+        "grandmother",
+        "aunt",
+        "child"
+      ],
+      "image_prompt": "Wide view inside a modest Ethiopian home with whitewashed walls: {aunt} reaching up to sweep a high corner of the wall with {sweeper}, while {grandmother}, wearing {everyday_attire}, stands beside her smiling proudly, and at the edge of the room {child} watches the broom wide-eyed; warm morning light from a window",
+      "motion_prompt": "The aunt sweeps the broom slowly up the wall; the camera stays still.",
+      "seed": 1101,
+      "motion": {
+        "method": "kenburns",
+        "kenburns": "pan_right"
+      },
+      "narration": {
+        "am": "ስምንት ዓመቴ ነበር። አያቴ ለአክስቴ ረጅም የግድግዳ መጥረጊያ ገዛችላት።",
+        "en": "I was eight. Grandma had bought my aunt a long wall sweeper."
+      }
+    },
+    {
+      "id": "s02",
+      "beat": "Fixation: whose sweeper will it be?",
+      "reason": "Makes the fixation feel real and plants the question that drives the story: whose sweeper is it going to be?",
+      "size": "close",
+      "duration_s": 6,
+      "characters": [
+        "child"
+      ],
+      "image_prompt": "Close-up of {child} staring at the fluffy corn-silk bristle head of a new broom, almost hypnotised, chin resting on her hands, lips slightly parted, eyes full of longing and curiosity, soft window light on her face",
+      "motion_prompt": "She blinks slowly, never looking away; the camera pushes in very slightly.",
+      "seed": 1102,
+      "motion": {
+        "method": "wan",
+        "kenburns": "push_in"
+      },
+      "narration": {
+        "am": "ዓይኔን ከሱ ላይ መንቀል አልቻልኩም። «የማን ይሆን?» እያልኩ አስብ ነበር።",
+        "en": "I could not take my eyes off it. \"Whose will it be?\" I kept wondering."
+      }
+    },
+    {
+      "id": "s03",
+      "beat": "Still fixated the next morning",
+      "reason": "Shows the fixation lasted overnight, so the mishearing that follows feels inevitable.",
+      "size": "medium",
+      "duration_s": 5,
+      "characters": [
+        "child"
+      ],
+      "image_prompt": "Medium shot the next morning: {child} sitting on a low wooden stool across the room, hugging her knees, gazing at {sweeper} leaning against the whitewashed wall in a beam of morning sunlight",
+      "motion_prompt": "She tilts her head, still gazing at the broom; dust motes drift in the sunbeam; fixed camera.",
+      "seed": 1103,
+      "motion": {
+        "method": "wan",
+        "kenburns": "push_in"
+      },
+      "narration": {
+        "am": "በማግስቱም ዓይኔ ከመጥረጊያው ላይ አልተነሳም።",
+        "en": "The next morning, my eyes still never left the sweeper."
+      }
+    },
+    {
+      "id": "s04",
+      "beat": "Grandma leaves to comfort the neighbours",
+      "reason": "The heritage heart of the film: the mourning dress, the netela turned down, the custom of comforting grieving neighbours, and the goodbye the child is about to mishear.",
+      "size": "medium",
+      "duration_s": 10,
+      "characters": [
+        "grandmother"
+      ],
+      "image_prompt": "Medium shot of {grandmother}, wearing {mourning_attire}, at an open wooden door, half turned back toward the room with a gentle wave, bright street light behind her",
+      "motion_prompt": "She waves once and turns toward the street; fixed camera.",
+      "seed": 1104,
+      "motion": {
+        "method": "kenburns",
+        "kenburns": "push_in"
+      },
+      "narration": {
+        "am": "አራት ሰዓት ላይ አያቴ ነጠላዋን አዘቅዝቃ ለቅሶ ልትደርስ ተነሳች። «መጣሁ ልጄ፣ ቶሎ እመለሳለሁ» ብላኝ ወጣች።",
+        "en": "At ten, her netela turned down for mourning, Grandma set off to comfort grieving neighbours. \"I'll be right back, my child,\" she said."
+      }
+    },
+    {
+      "id": "s05",
+      "beat": "The misunderstanding",
+      "reason": "The comic premise: her head is so full of the sweeper that a goodbye sounds like an order to bring it.",
+      "size": "medium_close",
+      "duration_s": 6,
+      "characters": [
+        "child"
+      ],
+      "image_prompt": "Medium close-up of {child} standing beside {sweeper}, looking up at it with a serious, determined little face, as if she has just been given a very important job",
+      "motion_prompt": "The girl nods to herself and reaches for the handle; fixed camera.",
+      "seed": 1105,
+      "motion": {
+        "method": "kenburns",
+        "kenburns": "pan_up"
+      },
+      "narration": {
+        "am": "እኔ ግን «መጥረጊያውን ይዘሽ ተከተይኝ» ያለችኝ መሰለኝ።",
+        "en": "But I thought she said, \"Bring the sweeper and follow me.\""
+      }
+    },
+    {
+      "id": "s06",
+      "beat": "Following, unseen",
+      "reason": "Shows the journey and why Grandma never noticed: the child is always a few steps behind.",
+      "size": "wide",
+      "duration_s": 7,
+      "characters": [
+        "child",
+        "grandmother"
+      ],
+      "image_prompt": "Wide view of a quiet sunlit neighbourhood street with corrugated-iron fences and eucalyptus trees; far ahead, {grandmother}, wearing {mourning_attire}, walking away; closer to the camera, {child} following her with {sweeper} resting on her shoulder, angled diagonally upward",
+      "motion_prompt": "The girl walks steadily forward, the broom bobbing on her shoulder; the camera tracks back slowly.",
+      "seed": 1106,
+      "motion": {
+        "method": "wan",
+        "kenburns": "pan_right"
+      },
+      "narration": {
+        "am": "መጥረጊያውን ትከሻዬ ላይ አድርጌ ተከተልኳት፤ ወደኋላ ስለቀረሁ አላየችኝም።",
+        "en": "So I put the sweeper on my shoulder and followed her. I was behind, so she never saw me."
+      }
+    },
+    {
+      "id": "s07",
+      "beat": "Crossing the asphalt",
+      "reason": "The image the family still laughs about most: a small child and a giant broom crossing a real road.",
+      "size": "extreme_wide",
+      "duration_s": 6,
+      "characters": [
+        "child"
+      ],
+      "image_prompt": "High-angle extreme wide view of a grey asphalt road, {child} small in the centre of the crossing, carrying {sweeper} on her shoulder, a few minibuses parked far down the road",
+      "motion_prompt": "The girl takes small careful steps across the road; the camera stays high and still.",
+      "seed": 1107,
+      "motion": {
+        "method": "kenburns",
+        "kenburns": "pan_left"
+      },
+      "narration": {
+        "am": "አስፋልቱንም ተሻገርኩ፤ መጥረጊያው ትከሻዬ ላይ እንዳለ።",
+        "en": "I even crossed the asphalt road, the sweeper still on my shoulder."
+      }
+    },
+    {
+      "id": "s08",
+      "beat": "The house of mourning",
+      "reason": "Sets the solemn room that makes the arrival so unexpected; the mourners stay anonymous and out of focus out of respect.",
+      "size": "medium",
+      "duration_s": 4,
+      "characters": [
+        "grandmother"
+      ],
+      "image_prompt": "Medium shot inside a dim, quiet house of mourning: {grandmother}, wearing {mourning_attire}, sitting down on a low bench among women in white shawls seen softly from behind and out of focus, sombre and respectful, soft diffused light",
+      "motion_prompt": "She settles onto the bench and lowers her eyes; fixed camera.",
+      "seed": 1108,
+      "motion": {
+        "method": "kenburns",
+        "kenburns": "push_in"
+      },
+      "narration": {
+        "am": "አያቴ ለቅሶ ቤት ገና እንደተቀመጠች…",
+        "en": "Grandma had only just sat down in the house of mourning…"
+      }
+    },
+    {
+      "id": "s09",
+      "beat": "The reveal at the door",
+      "reason": "The punchline image, held with the music silent so the audience has room to laugh.",
+      "size": "wide",
+      "duration_s": 5,
+      "characters": [
+        "child"
+      ],
+      "image_prompt": "View from inside a dim room toward a bright open doorway: {child} standing in the doorway in silhouette with {sweeper} on her shoulder, the broom angled diagonally across the bright doorway",
+      "motion_prompt": "The girl stands still in the doorway; very slow push-in.",
+      "seed": 1109,
+      "motion": {
+        "method": "wan",
+        "kenburns": "push_in"
+      },
+      "narration": {
+        "am": "…እኔ በሩ ላይ ብቅ አልኩ።",
+        "en": "…when I appeared at the door."
+      }
+    },
+    {
+      "id": "s10",
+      "beat": "Grandma's shock",
+      "reason": "Her shock (መደንገጥ) is the turn from tension to release, and it names the danger she imagines: the road.",
+      "size": "medium_close",
+      "duration_s": 7,
+      "characters": [
+        "grandmother"
+      ],
+      "image_prompt": "Medium close-up of {grandmother}, wearing {mourning_attire}, startled, rising quickly from a low bench, one hand on her chest, eyes wide with surprise, looking toward a bright doorway",
+      "motion_prompt": "She rises from the bench, hand on her chest; fixed camera.",
+      "seed": 1110,
+      "motion": {
+        "method": "kenburns",
+        "kenburns": "push_in"
+      },
+      "narration": {
+        "am": "አያቴ ደንግጣ ፈጥና ወደኔ መጣች፤ መንገዱን እንዴት እንደተሻገርኩ ግራ ገባት።",
+        "en": "Startled, Grandma hurried to me, wondering how I had ever crossed that road."
+      }
+    },
+    {
+      "id": "s11",
+      "beat": "Laughter",
+      "reason": "The release: love and laughter, the feeling we want the audience to share.",
+      "size": "close",
+      "duration_s": 7,
+      "characters": [
+        "child",
+        "grandmother"
+      ],
+      "image_prompt": "Close shot outside in warm light: {grandmother}, wearing {mourning_attire}, bending down beside {child}, laughing with her hand over her mouth, while the girl proudly holds {sweeper}, tender and warm",
+      "motion_prompt": "The grandmother laughs, her shoulders shaking gently; slow push-in.",
+      "seed": 1111,
+      "motion": {
+        "method": "wan",
+        "kenburns": "push_in"
+      },
+      "narration": {
+        "am": "ከዚያ ሳቀች፤ አክስቴን ጠርታ እኔንም መጥረጊያዋንም ወደ ቤት አስመለሰችን።",
+        "en": "Then she laughed, and called my aunt to take me, and her sweeper, back home."
+      }
+    },
+    {
+      "id": "s12",
+      "beat": "The story lives on",
+      "reason": "The motif returns as a tribute: Grandma is gone, but the sweeper and the laughter remain.",
+      "size": "insert",
+      "duration_s": 8,
+      "characters": [],
+      "image_prompt": "{sweeper} leaning against the same whitewashed wall as at the start, now in warm late-afternoon golden light, the room quiet, a folded white netela shawl resting on a small wooden stool beside it",
+      "motion_prompt": "Golden light slowly fades; very slow pull-out.",
+      "seed": 1112,
+      "motion": {
+        "method": "kenburns",
+        "kenburns": "pull_out"
+      },
+      "narration": {
+        "am": "አያቴ ዛሬ በሕይወት የለችም። ይህ ታሪክ ግን ዛሬም ቤተሰባችንንና ጎረቤቶቻችንን ያስቃል።",
+        "en": "Grandma is no longer with us. But this story still makes our family and our neighbours laugh."
+      }
+    }
+  ]
+}
