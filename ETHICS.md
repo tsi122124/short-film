@@ -32,6 +32,9 @@ a deceased person, consent was asked of close family: my aunt, who is also part 
   My aunt granted it for my grandmother's depiction and for her own (record C3).
 - **Status:** granted
 
+Grandma appears in two looks (`grandmother` in mourning clothes, `grandmother_home` at home). Both are
+the same person, and both are covered by this record.
+
 ### C3 — My aunt
 
 - **Person:** my aunt, for whom the sweeper was bought, shown trying it on the wall (shot s01) and
@@ -43,8 +46,14 @@ a deceased person, consent was asked of close family: my aunt, who is also part 
 
 ## How real people are depicted
 
-- **No photographs are uploaded to any model.** Both characters are generated from short written
-  descriptions in `storyboard.json`, never from a real photo, so no model receives a real face.
+- **No photograph of my family is uploaded to any model.** The characters are generated from short written
+  descriptions in `storyboard.json`, never from a family photo, so no model receives a real family face.
+- **One garment reference photo, used with permission.** To show how an Ethiopian mourning veil is worn,
+  I used one photo of women at a mourning gathering, with the consent of the photo's owner. Before use it
+  was cropped to a single woman seen from behind, with no face visible, so the model received only the
+  veil's drape. It is kept privately in the gitignored `assets/private/`, is not published in this
+  repository, and nobody in it appears in the film. Once Grandma's mourning reference was approved, that
+  image was pinned, so the photo is no longer needed to regenerate the film.
 - **Illustrated, not photorealistic.** A hand-painted gouache style was chosen out of respect for my
   grandmother (no realistic digital double of a person who has died) and because illustration hides
   the small identity drift that image models show between shots.
