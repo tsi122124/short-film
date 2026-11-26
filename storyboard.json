@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 7,
   "title": {
     "am": "መጥረጊያው",
     "en": "The Sweeper"
@@ -16,7 +16,7 @@
       "id": "child",
       "role": "The narrator as an eight-year-old",
       "label": "the girl",
-      "description": "a slim eight-year-old Habesha Ethiopian schoolgirl with warm brown skin, a bright oval face and big curious eyes, her black hair parted in the middle and neatly braided in cornrows running from front to back on both sides, wearing a well-made knee-length yellow cotton dress with a white rounded collar and small embroidered flowers, white socks and black buckle shoes",
+      "description": "a slim eight-year-old Habesha Ethiopian schoolgirl with warm brown skin, a bright oval face and big curious eyes, her black hair parted in the middle and in exactly two neat braids, one on each side of her head, with no braid at the back, wearing a well-made knee-length yellow cotton dress with a white rounded collar and small embroidered flowers, white socks and black buckle shoes",
       "real_person": true,
       "consent_id": "C1",
       "reference": {
@@ -32,6 +32,7 @@
       "description": "a short, plump, motherly elderly Habesha Ethiopian woman in her seventies with deep dark-brown skin, Ethiopian highland facial features, a round kind face with soft wrinkles and a warm smile, and white-grey hair",
       "real_person": true,
       "consent_id": "C2",
+      "face_from": "grandmother_home",
       "reference": {
         "prompt": "Edit image 0. Make two changes only: give her exactly the face of the woman in image 1, and shorten the black veil so it ends at her waist. Keep the veil wrapped around her head and neck, her long-sleeved long black dress, shoes, pose and the plain cream background exactly the same",
         "base_image": [
@@ -215,8 +216,8 @@
       "characters": [
         "child"
       ],
-      "image_prompt": "Inside the home: close-up of {child} staring at the fluffy bristle head of {sweeper} leaning against the whitewashed wall, almost hypnotised, chin resting on her hands, eyes full of longing and curiosity, soft window light on her face",
-      "motion_prompt": "She blinks slowly, never looking away; the camera pushes in very slightly.",
+      "image_prompt": "Inside the home: {sweeper} leaning against the whitewashed wall right in front of {child}, its long handle towering far above her; she tilts her head back and looks up at its top in wonder",
+      "motion_prompt": "She slowly looks up along the tall handle, eyes wide; gentle push-in.",
       "seed": 1102,
       "motion": {
         "method": "wan",
@@ -237,7 +238,7 @@
       "characters": [
         "child"
       ],
-      "image_prompt": "Inside the home the next morning: {child} sitting on a low wooden stool, hugging her knees, gazing at {sweeper} leaning against the whitewashed wall in a beam of morning sunlight",
+      "image_prompt": "Inside the home the next morning: {child} sitting on a low wooden stool, hugging her knees, gazing at {sweeper} leaning against the whitewashed wall in a beam of morning sunlight; seen from the front",
       "motion_prompt": "She tilts her head, still gazing at the broom; dust motes drift in the sunbeam; fixed camera.",
       "seed": 1103,
       "motion": {
@@ -257,13 +258,14 @@
       "location": "interior",
       "duration_s": 10,
       "characters": [
-        "grandmother"
+        "grandmother",
+        "child"
       ],
-      "image_prompt": "Inside the home at the open wooden front door: {grandmother}, wearing {mourning_attire}, half turned back toward the room with a gentle wave goodbye, bright daylight outside the door behind her",
-      "motion_prompt": "She waves once and turns toward the street; fixed camera.",
+      "image_prompt": "Inside the home: {grandmother}, wearing {mourning_attire}, stepping out through the open front door into the bright daylight, turning back to wave goodbye to {child}, who stands inside the room watching her",
+      "motion_prompt": "The grandmother waves once and steps out through the door; fixed camera.",
       "seed": 1104,
       "motion": {
-        "method": "kenburns",
+        "method": "wan",
         "kenburns": "push_in"
       },
       "narration": {
@@ -280,17 +282,18 @@
       "characters": [
         "child"
       ],
-      "image_prompt": "Medium close-up of {child} standing beside {sweeper}, looking up at it with a serious, determined little face, as if she has just been given a very important job",
-      "motion_prompt": "The girl nods to herself and reaches for the handle; fixed camera.",
+      "image_prompt": "Inside the home: {child} walking to {sweeper} leaning against the whitewashed wall and reaching up with both hands to take hold of its long handle",
+      "motion_prompt": "The girl reaches up and takes hold of the broom handle; fixed camera.",
       "seed": 1105,
       "motion": {
-        "method": "kenburns",
+        "method": "wan",
         "kenburns": "pan_up"
       },
       "narration": {
         "am": "እኔ ግን «መጥረጊያውን ይዘሽ ተከተይኝ» ያለችኝ መሰለኝ።",
         "en": "But I thought she said, \"Bring the sweeper and follow me.\""
-      }
+      },
+      "location": "interior"
     },
     {
       "id": "s06",
@@ -299,11 +302,11 @@
       "size": "wide",
       "duration_s": 7,
       "characters": [
-        "child",
-        "grandmother"
+        "grandmother",
+        "child"
       ],
-      "image_prompt": "Wide view of a quiet sunlit neighbourhood street with corrugated-iron fences and eucalyptus trees; far ahead, {grandmother}, wearing {mourning_attire}, walking away; closer to the camera, {child} following her with {sweeper} resting on her shoulder, angled diagonally upward",
-      "motion_prompt": "The girl walks steadily forward, the broom bobbing on her shoulder; the camera tracks back slowly.",
+      "image_prompt": "Outside the house gate: {grandmother}, wearing {mourning_attire}, walking ahead down the street with her back to the camera; a few steps behind her, {child} stepping out of the gate carrying {sweeper} on her right shoulder, the handle resting on the shoulder and the bristle head behind her",
+      "motion_prompt": "The grandmother walks away down the street; the girl follows with the broom on her shoulder; the camera stays still.",
       "seed": 1106,
       "motion": {
         "method": "wan",
@@ -321,13 +324,14 @@
       "size": "extreme_wide",
       "duration_s": 6,
       "characters": [
+        "grandmother",
         "child"
       ],
-      "image_prompt": "High-angle wide view of a grey asphalt road: {child} small in the middle of the crossing, carrying {sweeper} on her right shoulder, the very long broom clearly visible, its handle angled diagonally across the frame and its pale bristle head behind her, a few minibuses parked far down the road",
-      "motion_prompt": "The girl takes small careful steps across the road; the camera stays high and still.",
+      "image_prompt": "Wide view of a grey asphalt road: {grandmother}, wearing {mourning_attire}, leading the way across the road; a little behind her, {child} crossing after her, carrying {sweeper} on her right shoulder, the long handle resting on the shoulder and the bristle head behind her",
+      "motion_prompt": "Both walk across the road, the girl a few steps behind; the camera stays high and still.",
       "seed": 1207,
       "motion": {
-        "method": "kenburns",
+        "method": "wan",
         "kenburns": "pan_left"
       },
       "narration": {
@@ -344,17 +348,18 @@
       "characters": [
         "grandmother"
       ],
-      "image_prompt": "Medium shot inside a dim, quiet house of mourning: {grandmother}, wearing {mourning_attire}, sitting down on a low bench among women in white shawls seen softly from behind and out of focus, sombre and respectful, soft diffused light",
-      "motion_prompt": "She settles onto the bench and lowers her eyes; fixed camera.",
+      "image_prompt": "Inside a dim, quiet house of mourning: {grandmother}, wearing {mourning_attire}, sitting on a low bench among mourning women dressed like her in long black dresses and black veils, all the other women seen only from behind so their faces are not visible; sombre, respectful, soft diffused light",
+      "motion_prompt": "The women sit quietly; the grandmother lowers her eyes; fixed camera.",
       "seed": 1108,
       "motion": {
-        "method": "kenburns",
+        "method": "wan",
         "kenburns": "push_in"
       },
       "narration": {
         "am": "አያቴ ለቅሶ ቤት ገና እንደተቀመጠች…",
         "en": "Grandma had only just sat down in the house of mourning…"
-      }
+      },
+      "location": "interior"
     },
     {
       "id": "s09",
@@ -365,7 +370,7 @@
       "characters": [
         "child"
       ],
-      "image_prompt": "View from inside a dim room toward a bright open doorway: {child} standing in the doorway with {sweeper} resting on her right shoulder, the very long broom clearly visible, its handle angled diagonally across the bright doorway and its pale bristle head sticking out behind her",
+      "image_prompt": "View from inside the dim house of mourning toward the bright open doorway: {child} standing in the doorway with {sweeper} resting on her right shoulder, held with her right hand in front of the shoulder, the long handle running up and back over her shoulder and the bristle head high behind her back",
       "motion_prompt": "The girl stands still in the doorway; very slow push-in.",
       "seed": 1209,
       "motion": {
@@ -375,7 +380,8 @@
       "narration": {
         "am": "…እኔ በሩ ላይ ብቅ አልኩ።",
         "en": "…when I appeared at the door."
-      }
+      },
+      "location": "interior"
     },
     {
       "id": "s10",
@@ -384,19 +390,21 @@
       "size": "medium_close",
       "duration_s": 7,
       "characters": [
-        "grandmother"
+        "grandmother",
+        "child"
       ],
-      "image_prompt": "Medium close-up of {grandmother}, wearing {mourning_attire}, startled, rising quickly from a low bench, one hand on her chest, eyes wide with surprise, looking toward a bright doorway",
-      "motion_prompt": "She rises from the bench, hand on her chest; fixed camera.",
+      "image_prompt": "Inside the same dim house of mourning: {grandmother}, wearing {mourning_attire}, rising startled from the low bench, one hand on her chest, turning toward the bright doorway where {child} stands with {sweeper} resting on her shoulder; the other mourners seen only from behind",
+      "motion_prompt": "The grandmother rises from the bench, hand on her chest; fixed camera.",
       "seed": 1110,
       "motion": {
-        "method": "kenburns",
+        "method": "wan",
         "kenburns": "push_in"
       },
       "narration": {
         "am": "አያቴ ደንግጣ ፈጥና ወደኔ መጣች፤ መንገዱን እንዴት እንደተሻገርኩ ግራ ገባት።",
         "en": "Startled, Grandma hurried to me, wondering how I had ever crossed that road."
-      }
+      },
+      "location": "interior"
     },
     {
       "id": "s11",
@@ -405,11 +413,12 @@
       "size": "close",
       "duration_s": 7,
       "characters": [
-        "child",
-        "grandmother"
+        "grandmother",
+        "aunt",
+        "child"
       ],
-      "image_prompt": "Close shot outside in warm light: {grandmother}, wearing {mourning_attire}, bending down beside {child}, laughing with her hand over her mouth, while the girl proudly holds {sweeper}, tender and warm",
-      "motion_prompt": "The grandmother laughs, her shoulders shaking gently; slow push-in.",
+      "image_prompt": "Outside the house of mourning in warm daylight: {grandmother}, wearing {mourning_attire}, and {aunt} both laughing warmly, the grandmother with her hand over her mouth, beside {child}, who proudly holds {sweeper}",
+      "motion_prompt": "The two women laugh, shoulders shaking gently; slow push-in.",
       "seed": 1111,
       "motion": {
         "method": "wan",
@@ -426,18 +435,21 @@
       "reason": "The motif returns as a tribute: Grandma is gone, but the sweeper and the laughter remain.",
       "size": "insert",
       "duration_s": 8,
-      "characters": [],
-      "image_prompt": "{sweeper} leaning against the same whitewashed wall as at the start, now in warm late-afternoon golden light, the room quiet, a folded white netela shawl resting on a small wooden stool beside it",
-      "motion_prompt": "Golden light slowly fades; very slow pull-out.",
+      "characters": [
+        "grandmother_home"
+      ],
+      "image_prompt": "Inside the grandmother's home in warm late-afternoon golden light: {sweeper} leaning against the whitewashed wall, and beside it on the wall a framed portrait photograph of {grandmother_home}, wearing {everyday_attire}; a folded shawl on a small wooden stool; quiet and tender",
+      "motion_prompt": "Golden light slowly fades; very slow push-in toward the portrait.",
       "seed": 1112,
       "motion": {
-        "method": "kenburns",
+        "method": "wan",
         "kenburns": "pull_out"
       },
       "narration": {
         "am": "ውዷ አያቴ ዛሬ በሕይወት የለችም። ይህ ታሪክ ግን ቤተሰባችንንና ጎረቤቶቻችንን ያስቃል። አሁንም ያስቃል።",
         "en": "My dear grandmother is no longer with us. But this story makes our family and our neighbours laugh. It still does."
-      }
+      },
+      "location": "interior"
     }
   ]
 }
