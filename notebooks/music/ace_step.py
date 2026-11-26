@@ -14,9 +14,12 @@ import sys
 import time
 from pathlib import Path
 
-DATA = next(Path("/kaggle/input").glob("*"))
-OUT = Path("/kaggle/working")
-REPO = Path("/kaggle/temp/ACE-Step-1.5")
+# Kaggle mounts the pushed dataset under /kaggle/input. On Colab (fallback when the Kaggle GPU queue
+# stalls), upload music.json to /content and paste this file into a cell.
+ON_KAGGLE = Path("/kaggle/input").exists()
+DATA = next(Path("/kaggle/input").glob("*")) if ON_KAGGLE else Path("/content")
+OUT = Path("/kaggle/working") if ON_KAGGLE else Path("/content")
+REPO = (Path("/kaggle/temp") if ON_KAGGLE else Path("/content")) / "ACE-Step-1.5"
 job = json.loads((DATA / "music.json").read_text())
 print("job:", json.dumps(job), flush=True)
 
