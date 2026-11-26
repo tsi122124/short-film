@@ -115,6 +115,7 @@
       2103
     ],
     "chosen_seed": null,
+    "bed_lufs": -20,
     "cues": [
       {
         "id": "m1",
@@ -405,8 +406,8 @@
         "kenburns": "pull_out"
       },
       "narration": {
-        "am": "አያቴ ዛሬ በሕይወት የለችም። ይህ ታሪክ ግን ዛሬም ቤተሰባችንንና ጎረቤቶቻችንን ያስቃል።",
-        "en": "Grandma is no longer with us. But this story still makes our family and our neighbours laugh."
+        "am": "ውዷ አያቴ ዛሬ በሕይወት የለችም። ይህ ታሪክ ግን ቤተሰባችንንና ጎረቤቶቻችንን ያስቃል። አሁንም ያስቃል።",
+        "en": "My dear grandmother is no longer with us. But this story makes our family and our neighbours laugh. It still does."
       }
     }
   ]
