@@ -71,25 +71,43 @@ decisions themselves are unchanged; each row points to where it is implemented o
 | v7 | Grandma waves goodbye to the watching girl (s04); the girl reaches for the handle (s05); Grandma leads the walk and the crossing (s06, s07); laughter outside the house of mourning (s11); Grandma's portrait beside the sweeper (s12); the girl's hair as two braids; `face_from` keeps Grandma's face across her two outfits | My corrections to the v6.1 film. Then simplified so the image model can draw them: s06 and s11 show at most two people, and s12 describes the portrait in words (FAILURES.md F17). Keyframes made; film not yet re-rendered |
 | v6.1 | s04 narration: «ነጠላዋን አዘቅዝቃ» ("her netela turned down") → «ጥቁር የሃዘን ልብስ ለብሳ» ("dressed in black for mourning"); the end card credits only the tools in this cut | The words must match the picture: since v5 Grandma wears a black dress and veil, not a netela. Credits must be true: this cut has camera moves, not Wan clips, and no generated score (F15) |
 
-## User tests
+## User test: the published film, focused on the goodbye and the sweeper
 
-**Status: not run.** The two audience tests below were planned but not run before the deadline (see
-REPORT.md §6). The protocol is kept so the tests can be run as written.
+*Run on 27 Nov 2026, after the first grading. The radio-cut test planned before the deadline was not run.*
 
-## User test 1 (planned): the radio cut
+**Setup.** The published 9:16 film (storyboard v6.1) sent over Telegram to three viewers, each answering
+on their own. The test focused on the moment most likely to confuse people: why the girl picks up the
+sweeper after Grandma's goodbye (s04–s07). Questions:
 
-Narration over placeholder music on a black screen, 9:16, to be shared with at least three people from
-the audience. Questions to ask:
+1. In one word, how did you feel at the end?
+2. When Grandma says goodbye, why do you think the little girl picks up the sweeper and follows her?
+3. Was there any moment you were confused?
+4. Did any Amharic word sound wrong or unnatural?
 
-1. How did you feel at the end, in one word?
-2. Was there any moment you were confused or lost?
-3. Which line made you smile or laugh?
-4. Did any Amharic word or name sound wrong or unnatural?
-5. (Family only) Is anything different from how it really happened?
+Question 2 is open on purpose: viewers explain the moment in their own words, so I learn whether the
+film made it clear without leading them.
 
-Answers would be recorded by relationship (no names): who, what they watched on, what they said, and
-what I would change in the storyboard because of it.
+| Viewer | Feeling | Why the girl took the sweeper (Q2) | Confused? (Q3) | Amharic (Q4) |
+|---|---|---|---|---|
+| A, a friend | Bittersweet | So excited about the new sweeper that she misunderstood Grandma's words, and believed Grandma wanted her to bring it | No; liked the contrast between the funny misunderstanding and the emotional ending | «መጣሁ ልጄ፣ ቶሎ እመለሳለሁ» sounds natural and correct |
+| B, my brother | Hilarious | Obsessed with the sweeper; connected "I'll be back soon" to it and decided to follow | Briefly surprised when she walked into the house of mourning with it, and called that his favourite part | Nothing unnatural; Grandma's line sounded familiar |
+| C, my mom | Heartwarming | Wanted to be part of whatever Grandma was doing; fascinated by the sweeper, she took the goodbye as an invitation | Understood, but would like the moment the girl misunderstands Grandma to be slightly clearer *visually* | The written Amharic is correct and natural; would need to hear the narration to judge pronunciation |
 
-## User test 2 (planned): the near-final cut
+**What the test showed:**
 
-The same five questions with at least three different viewers, on the near-final film.
+- **3 of 3** explained the goodbye-and-sweeper moment correctly in their own words: a child so taken
+  with the sweeper that she heard the goodbye as an invitation. The moment works.
+- **0 of 3** were lost. Their one-word feelings (bittersweet, hilarious, heartwarming) match the intent
+  above: a warm laugh and a grandmother's love. The surprise at the house of mourning landed as
+  humour, not confusion (B).
+- **1 of 3** (C) wanted the misunderstanding itself to be clearer in the picture, not only in the
+  narration.
+- **Amharic:** 2 of 3 found nothing unnatural. C commented on the written words only.
+
+**What changes because of it.** C's comment points at the gap the v7 storyboard targets: in v7, Grandma
+waves goodbye *to the watching girl* (s04) and the girl then reaches for the handle (s05), so her
+decision to take the sweeper happens on screen. v7 was written from my own review before this test,
+and the tested film is v6.1, which shows neither. Next step: render v7 and ask C the same question.
+
+**Limits.** Three viewers, all close to me, so likely kind. Nobody from the part of the audience that
+doesn't speak Amharic, so following the story from the English subtitles alone is still untested.
