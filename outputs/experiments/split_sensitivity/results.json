@@ -1,0 +1,480 @@
+{
+  "shipped_settings": {
+    "silence_ratio": 0.06,
+    "min_pause_s": 0.2
+  },
+  "shipped_durations_s": {
+    "s01-s05": [
+      5.08,
+      4.18,
+      2.14,
+      7.58,
+      3.26
+    ],
+    "s06-s09": [
+      4.72,
+      3.34,
+      2.26,
+      1.6
+    ],
+    "s10-s12": [
+      5.4,
+      4.76,
+      8.06
+    ]
+  },
+  "grid": [
+    {
+      "silence_ratio": 0.03,
+      "min_pause_s": 0.1,
+      "takes": {
+        "s01-s05": {
+          "ok": true,
+          "durations_s": [
+            5.1,
+            4.2,
+            2.16,
+            7.58,
+            3.26
+          ],
+          "max_drift_s": 0.02
+        },
+        "s06-s09": {
+          "ok": true,
+          "durations_s": [
+            4.74,
+            3.34,
+            2.28,
+            1.62
+          ],
+          "max_drift_s": 0.02
+        },
+        "s10-s12": {
+          "ok": true,
+          "durations_s": [
+            5.42,
+            4.76,
+            8.08
+          ],
+          "max_drift_s": 0.02
+        }
+      }
+    },
+    {
+      "silence_ratio": 0.03,
+      "min_pause_s": 0.2,
+      "takes": {
+        "s01-s05": {
+          "ok": true,
+          "durations_s": [
+            5.1,
+            4.2,
+            2.16,
+            7.58,
+            3.26
+          ],
+          "max_drift_s": 0.02
+        },
+        "s06-s09": {
+          "ok": true,
+          "durations_s": [
+            4.74,
+            3.34,
+            2.28,
+            1.62
+          ],
+          "max_drift_s": 0.02
+        },
+        "s10-s12": {
+          "ok": true,
+          "durations_s": [
+            5.42,
+            4.76,
+            8.08
+          ],
+          "max_drift_s": 0.02
+        }
+      }
+    },
+    {
+      "silence_ratio": 0.03,
+      "min_pause_s": 0.3,
+      "takes": {
+        "s01-s05": {
+          "ok": true,
+          "durations_s": [
+            5.1,
+            4.2,
+            2.16,
+            7.58,
+            3.26
+          ],
+          "max_drift_s": 0.02
+        },
+        "s06-s09": {
+          "ok": true,
+          "durations_s": [
+            4.74,
+            3.34,
+            2.28,
+            1.62
+          ],
+          "max_drift_s": 0.02
+        },
+        "s10-s12": {
+          "ok": true,
+          "durations_s": [
+            5.42,
+            4.76,
+            8.08
+          ],
+          "max_drift_s": 0.02
+        }
+      }
+    },
+    {
+      "silence_ratio": 0.03,
+      "min_pause_s": 0.5,
+      "takes": {
+        "s01-s05": {
+          "ok": true,
+          "durations_s": [
+            5.1,
+            4.2,
+            2.16,
+            7.58,
+            3.26
+          ],
+          "max_drift_s": 0.02
+        },
+        "s06-s09": {
+          "ok": true,
+          "durations_s": [
+            4.74,
+            3.34,
+            2.28,
+            1.62
+          ],
+          "max_drift_s": 0.02
+        },
+        "s10-s12": {
+          "ok": false,
+          "error": "line lengths look wrong (10.5s, 2.2s, 5.4s) for texts of [49, 47, 66] chars"
+        }
+      }
+    },
+    {
+      "silence_ratio": 0.06,
+      "min_pause_s": 0.1,
+      "takes": {
+        "s01-s05": {
+          "ok": true,
+          "durations_s": [
+            5.08,
+            4.18,
+            2.14,
+            7.58,
+            3.26
+          ],
+          "max_drift_s": 0.0
+        },
+        "s06-s09": {
+          "ok": true,
+          "durations_s": [
+            4.72,
+            3.34,
+            2.26,
+            1.6
+          ],
+          "max_drift_s": 0.0
+        },
+        "s10-s12": {
+          "ok": true,
+          "durations_s": [
+            5.4,
+            4.76,
+            8.06
+          ],
+          "max_drift_s": 0.0
+        }
+      }
+    },
+    {
+      "silence_ratio": 0.06,
+      "min_pause_s": 0.2,
+      "takes": {
+        "s01-s05": {
+          "ok": true,
+          "durations_s": [
+            5.08,
+            4.18,
+            2.14,
+            7.58,
+            3.26
+          ],
+          "max_drift_s": 0.0
+        },
+        "s06-s09": {
+          "ok": true,
+          "durations_s": [
+            4.72,
+            3.34,
+            2.26,
+            1.6
+          ],
+          "max_drift_s": 0.0
+        },
+        "s10-s12": {
+          "ok": true,
+          "durations_s": [
+            5.4,
+            4.76,
+            8.06
+          ],
+          "max_drift_s": 0.0
+        }
+      }
+    },
+    {
+      "silence_ratio": 0.06,
+      "min_pause_s": 0.3,
+      "takes": {
+        "s01-s05": {
+          "ok": true,
+          "durations_s": [
+            5.08,
+            4.18,
+            2.14,
+            7.58,
+            3.26
+          ],
+          "max_drift_s": 0.0
+        },
+        "s06-s09": {
+          "ok": true,
+          "durations_s": [
+            4.72,
+            3.34,
+            2.26,
+            1.6
+          ],
+          "max_drift_s": 0.0
+        },
+        "s10-s12": {
+          "ok": true,
+          "durations_s": [
+            5.4,
+            4.76,
+            8.06
+          ],
+          "max_drift_s": 0.0
+        }
+      }
+    },
+    {
+      "silence_ratio": 0.06,
+      "min_pause_s": 0.5,
+      "takes": {
+        "s01-s05": {
+          "ok": true,
+          "durations_s": [
+            5.08,
+            4.18,
+            2.14,
+            7.58,
+            3.26
+          ],
+          "max_drift_s": 0.0
+        },
+        "s06-s09": {
+          "ok": true,
+          "durations_s": [
+            4.72,
+            3.34,
+            2.26,
+            1.6
+          ],
+          "max_drift_s": 0.0
+        },
+        "s10-s12": {
+          "ok": true,
+          "durations_s": [
+            6.8,
+            3.34,
+            8.06
+          ],
+          "max_drift_s": 1.42
+        }
+      }
+    },
+    {
+      "silence_ratio": 0.1,
+      "min_pause_s": 0.1,
+      "takes": {
+        "s01-s05": {
+          "ok": true,
+          "durations_s": [
+            5.08,
+            4.18,
+            2.14,
+            7.56,
+            3.24
+          ],
+          "max_drift_s": 0.02
+        },
+        "s06-s09": {
+          "ok": true,
+          "durations_s": [
+            4.72,
+            3.32,
+            2.24,
+            1.56
+          ],
+          "max_drift_s": 0.04
+        },
+        "s10-s12": {
+          "ok": true,
+          "durations_s": [
+            5.4,
+            4.76,
+            8.0
+          ],
+          "max_drift_s": 0.06
+        }
+      }
+    },
+    {
+      "silence_ratio": 0.1,
+      "min_pause_s": 0.2,
+      "takes": {
+        "s01-s05": {
+          "ok": true,
+          "durations_s": [
+            5.08,
+            4.18,
+            2.14,
+            7.56,
+            3.24
+          ],
+          "max_drift_s": 0.02
+        },
+        "s06-s09": {
+          "ok": true,
+          "durations_s": [
+            4.72,
+            3.32,
+            2.24,
+            1.56
+          ],
+          "max_drift_s": 0.04
+        },
+        "s10-s12": {
+          "ok": true,
+          "durations_s": [
+            5.4,
+            4.76,
+            8.0
+          ],
+          "max_drift_s": 0.06
+        }
+      }
+    },
+    {
+      "silence_ratio": 0.1,
+      "min_pause_s": 0.3,
+      "takes": {
+        "s01-s05": {
+          "ok": true,
+          "durations_s": [
+            5.08,
+            4.18,
+            2.14,
+            7.56,
+            3.24
+          ],
+          "max_drift_s": 0.02
+        },
+        "s06-s09": {
+          "ok": true,
+          "durations_s": [
+            4.72,
+            3.32,
+            2.24,
+            1.56
+          ],
+          "max_drift_s": 0.04
+        },
+        "s10-s12": {
+          "ok": true,
+          "durations_s": [
+            5.4,
+            4.76,
+            8.0
+          ],
+          "max_drift_s": 0.06
+        }
+      }
+    },
+    {
+      "silence_ratio": 0.1,
+      "min_pause_s": 0.5,
+      "takes": {
+        "s01-s05": {
+          "ok": true,
+          "durations_s": [
+            5.08,
+            4.18,
+            2.14,
+            7.56,
+            3.24
+          ],
+          "max_drift_s": 0.02
+        },
+        "s06-s09": {
+          "ok": true,
+          "durations_s": [
+            4.72,
+            3.32,
+            2.24,
+            1.56
+          ],
+          "max_drift_s": 0.04
+        },
+        "s10-s12": {
+          "ok": true,
+          "durations_s": [
+            6.8,
+            3.34,
+            8.0
+          ],
+          "max_drift_s": 1.42
+        }
+      }
+    }
+  ],
+  "longest_pause_method": {
+    "s01-s05": {
+      "ok": true,
+      "durations_s": [
+        5.02,
+        4.06,
+        2.02,
+        7.46,
+        3.14
+      ]
+    },
+    "s06-s09": {
+      "ok": true,
+      "durations_s": [
+        4.62,
+        3.22,
+        2.14,
+        1.48
+      ]
+    },
+    "s10-s12": {
+      "ok": false,
+      "error": "line lengths look wrong ([10.4, 6.4, 0.9] s)"
+    }
+  }
+}

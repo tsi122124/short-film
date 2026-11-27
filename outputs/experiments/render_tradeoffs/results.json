@@ -1,0 +1,76 @@
+{
+  "shot": "s04",
+  "move": "push_in",
+  "frames": 240,
+  "size": [
+    1080,
+    1920
+  ],
+  "crf": 19,
+  "machine": "Intel Celeron N4020, 2 cores",
+  "repeats": 2,
+  "e10_presets": [
+    {
+      "preset": "ultrafast",
+      "encode_s": [
+        11.5,
+        12.6
+      ],
+      "size_mb": 19.7,
+      "ssim_vs_lossless": 0.9735
+    },
+    {
+      "preset": "veryfast",
+      "encode_s": [
+        25.2,
+        19.2
+      ],
+      "size_mb": 2.17,
+      "ssim_vs_lossless": 0.981
+    },
+    {
+      "preset": "medium",
+      "encode_s": [
+        51.7,
+        51.7
+      ],
+      "size_mb": 2.97,
+      "ssim_vs_lossless": 0.9836
+    }
+  ],
+  "e11_upscale": [
+    {
+      "upscale": 1,
+      "encode_s": [
+        16.0,
+        17.1
+      ],
+      "frames": 240,
+      "mean_frame_change": 3.052,
+      "variation_cv": 0.549,
+      "frozen_frames": 18
+    },
+    {
+      "upscale": 2,
+      "encode_s": [
+        22.6,
+        19.6
+      ],
+      "frames": 240,
+      "mean_frame_change": 2.382,
+      "variation_cv": 0.289,
+      "frozen_frames": 0
+    },
+    {
+      "upscale": 3,
+      "encode_s": [
+        28.5,
+        38.2
+      ],
+      "frames": 240,
+      "mean_frame_change": 1.826,
+      "variation_cv": 0.243,
+      "frozen_frames": 0
+    }
+  ]
+}
