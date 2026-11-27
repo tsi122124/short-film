@@ -3,6 +3,91 @@
 Each entry: hypothesis → change → result, with the evidence (log lines in `runs.jsonl`, files in
 `outputs/`). One thing changes per experiment; seeds and inputs stay fixed where they matter.
 
+## The questions, at a glance
+
+| # | Question | Answer |
+|---|---|---|
+| E1 | Which TTS voice sounds most natural in Amharic? | Gemini Sulafat with a story-telling style, out of 11 voices (one listener so far) |
+| E2 | Does the style instruction control pace? | No: removing "slow" made the line longer, 8.70 → 9.36 s |
+| E3 | Can the script fit 60–90 s without losing the story? | Yes: speech 104 → 54.5 s, every beat kept |
+| E4 | Can one request per scene still give one file per shot? | Yes, with text-guided splitting: 12 → 3 requests per pass |
+| E5 | Do reference images keep characters consistent? | The girl and the sweeper yes; Grandma's face drifts |
+| E6 | Edit an approved image, or generate fresh? | Fresh outfit, then a two-image edit for the face, then single changes |
+| E7 | Should reference images include the setting? | No: separating look from place kept approved faces stable |
+| E8 | Does the delivered MP4 still meet −14 LUFS / −1 dBTP? | Yes: −14.07 LUFS, −1.33 dBTP; AAC added 0.17 dB of peak |
+| E9 | Is the narration splitter fragile? | No: 33 of 36 re-splits identical across 12 settings; a 0.5 s minimum pause breaks it |
+| E10 | Which x264 preset suits a 2-core laptop? | veryfast: 99.7 % of medium's SSIM in 43 % of the time |
+| E11 | Does upscaling 2× before the camera move earn its cost? | Yes: frozen frames 18 → 0 for +27 % encode time |
+
+*E9–E11 were added on 27 Nov 2026, after the first grading. They use only cached files and the local CPU,
+so they made no model call; each has a script in `experiments/` and results in `outputs/experiments/`.*
+
+## E9. Is the narration splitter fragile?
+
+- **Hypothesis:** the shipped settings (a frame is silent below 6 % of loud speech; a pause must last at
+  least 0.2 s) are not a lucky pick. Nearby settings should split all three cached scene takes into the
+  same 12 lines, and the text-guided method should beat splitting at the longest pauses on every take.
+- **Change:** re-split the three cached takes under 12 settings (silence threshold 3 / 6 / 10 % × minimum
+  pause 0.1 / 0.2 / 0.3 / 0.5 s), comparing each result with the shipped lines; then run the
+  longest-pause method (rejected in E4) at the shipped settings. Same audio every time, no TTS request.
+  Script: `experiments/split_sensitivity.py`; results: `outputs/experiments/split_sensitivity/results.json`.
+- **Result:**
+  - **33 of 36** re-splits gave the same lines as shipped (within 0.1 s). Every failure was take s10–s12
+    with a 0.5 s minimum pause: refused once, and **twice it passed the plausibility check with a
+    boundary 1.4 s off** (s10 6.8 s instead of 5.4 s, s11 3.3 s instead of 4.8 s).
+  - The longest-pause method found the right lines in s01–s05 and s06–s09, but refused s10–s12
+    (it would have cut 10.4 / 6.4 / 0.9 s).
+- **Conclusion:** the shipped settings sit in the middle of a stable range (3–10 %, 0.1–0.3 s). A minimum
+  pause near 0.5 s is dangerous, because in this voice a real line break can be as short as 0.26 s (E4).
+  And the 2× plausibility check catches gross errors but not a boundary shifted by 1.4 s, so listening to
+  every line stays part of the process (F8). A tighter check (for example 1.5×) is a possible next step,
+  but it would first need testing against natural variation in reading speed.
+
+## E10. Which x264 preset suits a 2-core laptop?
+
+- **Hypothesis:** `-preset veryfast` (shipped) gives nearly the quality of `medium` in about half the
+  time, while `ultrafast` saves time at a large cost in file size.
+- **Change:** one real shot (s04: a 10 s push-in, 240 frames at 1080×1920), the same filter and CRF 19,
+  three presets, two timed runs each. Quality is SSIM (a standard 0–1 similarity score, 1 = identical)
+  against a lossless encode of the same frames. Laptop otherwise idle.
+  Script: `experiments/render_tradeoffs.py`; results: `outputs/experiments/render_tradeoffs/results.json`.
+- **Result:**
+
+  | Preset | Encode time (2 runs) | File size | SSIM vs lossless |
+  |---|---|---|---|
+  | ultrafast | 11.5 s, 12.6 s | 19.7 MB | 0.9735 |
+  | **veryfast (shipped)** | 25.2 s, 19.2 s | 2.2 MB | 0.9810 |
+  | medium | 51.7 s, 51.7 s | 3.0 MB | 0.9836 |
+
+- **Conclusion:** veryfast keeps 99.7 % of medium's SSIM in 43 % of the time (22.2 vs 51.7 s on
+  average), with a smaller file. ultrafast is 1.8× faster than veryfast but its file is 9× larger and its
+  SSIM lower. The shipped choice holds. **Caveat on timing:** the shipped settings ran four times across
+  E10 and E11 and took 19.2–25.2 s (mean 21.7 s), so on this laptop a timing difference under ~15 % is
+  noise.
+
+## E11. Does upscaling 2× before the camera move earn its cost?
+
+- **Hypothesis:** FFmpeg's `zoompan` moves its crop in whole pixels, so at the original size a slow
+  push-in steps instead of gliding. Upscaling 2× first (shipped) should remove the stepping for a modest
+  time cost, and 3× should add little.
+- **Change:** the same shot s04, upscale factor 1× / 2× / 3×, two timed runs each. Smoothness is measured
+  on uncompressed frames, so codec noise can't hide or fake it: **frozen frames** (identical to the frame
+  before) and **unevenness** (standard deviation ÷ mean of the change between consecutive frames; a
+  smooth push-in changes every frame by about the same amount).
+- **Result:**
+
+  | Upscale | Encode time (2 runs) | Frozen frames (of 239 steps) | Unevenness |
+  |---|---|---|---|
+  | 1× | 16.0 s, 17.1 s | 18 | 0.55 |
+  | **2× (shipped)** | 22.6 s, 19.6 s | 0 | 0.29 |
+  | 3× | 28.5 s, 38.2 s | 0 | 0.24 |
+
+- **Conclusion:** at 1×, 18 of 239 frame steps (7.5 %) didn't move at all, and motion was almost twice as
+  uneven. 2× removed every frozen frame for about 27 % more encode time (21.1 vs 16.6 s). 3× was only
+  slightly smoother, for another 58 % (33.4 s), and varied more between runs. The shipped 2× holds.
+  **Caveat:** one shot and one move, and the metric is not yet confirmed by eye; the 1× and 2× clips are
+  in `outputs/_scratch/render_tradeoffs/` (not committed) to compare side by side.
+
 ## E8. Does the delivered film still meet −14 LUFS / −1 dBTP after video encoding?
 
 - **Hypothesis:** mastering to −1.5 dBTP, not exactly −1, leaves enough headroom for the AAC encoder

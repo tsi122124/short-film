@@ -2,12 +2,13 @@
 
 **TRP2 Week 0 — AI-Content Generation: The Heritage Short** · Tsion · 26 November 2026
 
-| | |
-|---|---|
-| Code | https://github.com/tsi122124/short-film |
-| Film, 9:16 | ⟪link⟫ |
-| Film, 16:9 | ⟪link⟫ |
-| Public post | ⟪LinkedIn post link⟫ |
+> **Revised 27 November 2026, after the first grading.** Added: three measured experiments (E9–E11),
+> time per stage, GPU minutes and a frontier-model cost comparison (COSTS.md), and an explicit table of
+> how the audience shaped each decision (DESIGN.md). The empty user-test placeholders were replaced by
+> a plain statement that the tests were not run (§6). Nothing in the film or the pipeline changed.
+
+**Code:** https://github.com/tsi122124/short-film. The films (9:16 and 16:9) and the public post are
+submitted separately.
 
 ## 1. Summary
 
@@ -21,7 +22,8 @@ The film is not edited by hand. One file, `storyboard.json`, holds every narrati
 model id and music cue. It is validated against a JSON Schema, and a single command, `uv run film`,
 turns it into both aspect ratios. Every model call is cached by a hash of its inputs, retried when that
 makes sense, and logged with its parameters, seed, latency and cost. In total the film cost **$0.00**
-(≈ $0.16 at list price), and a full regeneration costs ≈ $0.025.
+(≈ $0.20 at list price for all 287 logged attempts), and a full regeneration costs ≈ $0.025 and about
+35 minutes, of which only 3.5 are model calls.
 
 ## 2. Audience and story
 
@@ -30,6 +32,13 @@ diaspora who grew up close to a grandmother. They watch on a phone, vertically, 
 
 **Intent.** At the end they should feel a warm laugh at a child's innocent mistake, my grandmother's
 love, and a thought about their own grandmother.
+
+**How the audience shaped the film.** Because they watch on a phone in a feed, 9:16 is the main cut and
+subtitles sit above the app's buttons. Because feeds often play muted, every shot works without sound
+and English subtitles are burned in, which also serves diaspora viewers who don't speak Amharic. Because
+a feed gives seconds of attention, the film is 82 s and opens on one striking image. Because family will
+notice anything false, Grandma's real words are kept exactly. The full table, with where each decision
+is implemented, is in DESIGN.md ("How the audience shaped each decision").
 
 **Why this story.** I considered a coffee ceremony and a family proverb. I chose the sweeper because it
 has one unforgettable image (a small girl, a giant broom, an asphalt road, a house of mourning), a clear
@@ -65,7 +74,7 @@ The full design is in ARCHITECTURE.md. These five decisions matter most:
    4006 means "daily allocation used up" and fails fast, since no retry can help before midnight UTC; and
    every TTS attempt gets a hard 90-second deadline, because the SDK's own timeout once let a call hang
    for 15 minutes.
-4. **Everything is logged.** 196 calls in `runs.jsonl`, including failures and retries, with secrets
+4. **Everything is logged.** 287 attempts in `runs.jsonl`, including failures and retries, with secrets
    redacted and provider replies filtered through an allowlist.
 5. **Consent is enforced in code.** The keyframe stage refuses to draw any character marked
    `real_person: true` unless that person's record in ETHICS.md says `granted`.
@@ -84,6 +93,8 @@ under the −1 dBTP limit.
 
 ## 4. What the experiments showed
 
+Eleven questions, each with a hypothesis, one change and a measured result (EXPERIMENTS.md):
+
 | # | Question | Result |
 |---|---|---|
 | E1 | Which TTS voice sounds like natural Amharic? | A teammate recommended Addis AI. In my comparison of 11 voices, Gemini *Sulafat* with a story-telling style instruction sounded the most natural and expressive. It was also the slowest voice. |
@@ -94,6 +105,14 @@ under the −1 dBTP limit.
 | E6 | Edit an approved image or generate fresh? | Edits keep the face but also the old clothes. Best: fresh outfit, then a two-image edit for the face, then single-change edits. |
 | E7 | Should references include the setting? | No. Splitting look from place meant I could modernise the streets without changing approved faces. |
 | E8 | Does the delivered MP4 still meet −14 LUFS / −1 dBTP? | Yes: −14.07 LUFS, −1.33 dBTP. Encoding added 0.17 dB of peak; mastering to exactly −1.0 would have failed. |
+| E9 | Is the narration splitter fragile? | No: 33 of 36 re-splits across 12 threshold settings gave the same lines. A 0.5 s minimum pause broke it, and twice the plausibility check missed a boundary 1.4 s off, so listening stays part of the process. |
+| E10 | Which x264 preset suits a 2-core laptop? | The shipped `veryfast`: 99.7 % of `medium`'s SSIM in 43 % of the time. `ultrafast` was 1.8× faster but its file 9× larger. |
+| E11 | Does upscaling 2× before the camera move earn its cost? | Yes: frozen frames in a slow push-in dropped from 18 to 0 for 27 % more encode time; 3× added little for another 58 %. |
+
+**Cost and time** (COSTS.md). All model calls together took 41 minutes; FFmpeg on the laptop took 187.
+GPU time was 0 minutes: both Kaggle jobs stayed in the queue. Against frontier models, images would cost
+50–100× more and video $5–24 per film with Veo 3.1, while narration costs cents with any option. The
+upgrade worth paying for first is a larger image model for the three F17 shots, about $0.20–0.40.
 
 ## 5. What failed and what it taught me
 
@@ -120,13 +139,14 @@ through an allowlist, and the log is 194 KB.
 
 ## 6. User tests and what changed
 
-Storyboard iterations v1 → v6 came from my own review against what really happened, and from my aunt's
-memory of the day (DESIGN.md has the full table). The two audience tests:
+Storyboard iterations v1 → v7 came from my own review against what really happened and from my
+aunt's memory of the day (DESIGN.md has the full table).
 
-**Test 1, radio cut** (narration and music on black, 9:16): ⟪who, how many, what they said⟫
-→ changes: ⟪…⟫
-
-**Test 2, near-final cut**: ⟪who, how many, what they said⟫ → changes: ⟪…⟫
+**The two planned audience tests were not run before the deadline.** So far the film has been judged
+by two people who know the story, my aunt and me, not by the wider audience it is for. The protocol
+is ready in DESIGN.md: five questions, at least three viewers per cut, answers recorded by
+relationship. The first things I would want to learn: whether viewers who don't speak Amharic can
+follow from the subtitles alone, and whether the reveal at s09 gets the laugh the silence leaves room for.
 
 **Storyboard v7: keyframes made, film not yet re-rendered.** Grandma waves goodbye to the watching
 girl, the girl reaches for the handle, Grandma leads the walk and the road crossing, and s12 shows
@@ -158,6 +178,19 @@ s11 were simplified to at most two people (F17). The published film is still v6.
 
 ## 9. Reflection
 
-⟪Your own words, about half a page. Prompts: What was hardest, and what did you do about it? What
-would you do differently on day one? Where did the coding agent help, and where did you have to
-overrule it? What did making a film about your grandmother feel like?⟫
+The hardest parts were the quotas and the images. Both free tiers ran out on the same day, so I had to
+batch the narration and rely on the cache to keep going (F7, F14). The images were harder: a character
+would look right in one shot and different in the next, and shots with three people never came out
+right at all (E5, F17). I learned to fix each character's look first with approved reference images,
+and to ask the model only for what it can actually draw.
+
+If I started again, on day one I would get Kaggle ready. My GPU jobs went into the queue on the last
+afternoon and never started, so this cut uses camera moves instead of real motion, and a placeholder
+music bed instead of a generated score (F15).
+
+The coding agent wrote the code fast, and it helped me see things from angles I didn't see myself. But
+some things only I could judge: whether the Amharic sounded natural, which words were mispronounced,
+and whether a picture matched what really happened and how my grandmother really dressed (E1, F8, and
+storyboard v2–v7).
+
+Making this film was a great experience. It made me remember my grandmother and that morning.

@@ -39,6 +39,22 @@ shock, then laughed, and sent me and the sweeper home with my aunt.
 - **Music falls silent at the reveal (s09)** so the audience has room to laugh.
 - **The mourners stay anonymous and out of focus.** The humour is about me, never about their grief.
 
+## How the audience shaped each decision
+
+*Added 27 Nov 2026, after the first grading, to make the audience-to-decision link explicit. The
+decisions themselves are unchanged; each row points to where it is implemented or measured.*
+
+| What this audience needs | Decision | Where |
+|---|---|---|
+| They watch **on a phone, vertically, in a feed** | 9:16 is the main cut; keyframes are square so both aspect ratios crop from one image. Subtitles sit 400 px above the bottom, clear of the buttons and caption bar apps draw there | `assemble.ASPECTS`, ARCHITECTURE.md §7 |
+| Feeds often play **with the sound off** | Every shot must work without sound; English subtitles are burned in, not optional | DESIGN.md "Show, don't tell", `write_subtitles` |
+| **Diaspora viewers and colleagues** may not understand Amharic | Amharic narration (the family's language) with English subtitles, wrapped at 40 characters and 2 lines to stay readable on a phone | `subtitle_events`, test `test_subtitle_events_respect_two_lines_of_forty_chars` |
+| A feed gives **seconds, not minutes**, of attention | 60–90 s, enforced by the storyboard validator; speech cut from 104 s to 54.5 s; the film opens on one striking image (a small girl, a giant broom) | `rule_problems`, E3 |
+| **Family who knew my grandmother** will notice anything false | Her real goodbye «መጣሁ ልጄ፣ ቶሎ እመለሳለሁ» kept word for word; details checked against my aunt's memory; consent recorded for every real person | storyboard v2, v5; ETHICS.md |
+| **Ethiopian viewers** will notice if it doesn't look Ethiopian | Concrete visual language (Habesha features, corrugated-iron roofs, blue-and-white minibuses), the real mourning dress code | F9, storyboard v4–v5 |
+| **Native Amharic listeners** will hear any wrong word | Voice chosen by a native speaker's ear across 11 voices; mispronounced lines re-worded, not ignored | E1, F8 |
+| The story touches **grief and a grandmother who has died** | Illustrated, not photorealistic; mourners anonymous; music falls silent at the reveal so the laugh has room | DESIGN.md decisions, music cue at s09 |
+
 ## Storyboard iterations before user testing
 
 | Version | What changed | Why |
@@ -55,10 +71,15 @@ shock, then laughed, and sent me and the sweeper home with my aunt.
 | v7 | Grandma waves goodbye to the watching girl (s04); the girl reaches for the handle (s05); Grandma leads the walk and the crossing (s06, s07); laughter outside the house of mourning (s11); Grandma's portrait beside the sweeper (s12); the girl's hair as two braids; `face_from` keeps Grandma's face across her two outfits | My corrections to the v6.1 film. Then simplified so the image model can draw them: s06 and s11 show at most two people, and s12 describes the portrait in words (FAILURES.md F17). Keyframes made; film not yet re-rendered |
 | v6.1 | s04 narration: «ነጠላዋን አዘቅዝቃ» ("her netela turned down") → «ጥቁር የሃዘን ልብስ ለብሳ» ("dressed in black for mourning"); the end card credits only the tools in this cut | The words must match the picture: since v5 Grandma wears a black dress and veil, not a netela. Credits must be true: this cut has camera moves, not Wan clips, and no generated score (F15) |
 
-## User test 1: the radio cut
+## User tests
 
-Narration over placeholder music on a black screen, 9:16, shared with at least three people from the
-audience. Questions asked:
+**Status: not run.** The two audience tests below were planned but not run before the deadline (see
+REPORT.md §6). The protocol is kept so the tests can be run as written.
+
+## User test 1 (planned): the radio cut
+
+Narration over placeholder music on a black screen, 9:16, to be shared with at least three people from
+the audience. Questions to ask:
 
 1. How did you feel at the end, in one word?
 2. Was there any moment you were confused or lost?
@@ -66,14 +87,9 @@ audience. Questions asked:
 4. Did any Amharic word or name sound wrong or unnatural?
 5. (Family only) Is anything different from how it really happened?
 
-| # | Who (relationship, no names) | Watched on | What they said | What I will change |
-|---|---|---|---|---|
-| 1 | | | | |
-| 2 | | | | |
-| 3 | | | | |
+Answers would be recorded by relationship (no names): who, what they watched on, what they said, and
+what I would change in the storyboard because of it.
 
-**Storyboard changes because of test 1:** _to be filled in._
+## User test 2 (planned): the near-final cut
 
-## User test 2: the near-final cut
-
-_To be filled in after the near-final cut._
+The same five questions with at least three different viewers, on the near-final film.
