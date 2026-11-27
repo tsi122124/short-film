@@ -4,8 +4,8 @@
 
 > **Revised 27 November 2026, after the first grading.** Added: three measured experiments (E9–E11),
 > time per stage, GPU minutes and a frontier-model cost comparison (COSTS.md), and an explicit table of
-> how the audience shaped each decision (DESIGN.md). The empty user-test placeholders were replaced by
-> a plain statement that the tests were not run (§6). Nothing in the film or the pipeline changed.
+> how the audience shaped each decision (DESIGN.md). After the second grading, one structured user
+> test with three viewers was added (§6, DESIGN.md). Nothing in the film or the pipeline changed.
 
 **Code:** https://github.com/tsi122124/short-film. The films (9:16 and 16:9) and the public post are
 submitted separately.
@@ -142,11 +142,20 @@ through an allowlist, and the log is 194 KB.
 Storyboard iterations v1 → v7 came from my own review against what really happened and from my
 aunt's memory of the day (DESIGN.md has the full table).
 
-**The two planned audience tests were not run before the deadline.** So far the film has been judged
-by two people who know the story, my aunt and me, not by the wider audience it is for. The protocol
-is ready in DESIGN.md: five questions, at least three viewers per cut, answers recorded by
-relationship. The first things I would want to learn: whether viewers who don't speak Amharic can
-follow from the subtitles alone, and whether the reveal at s09 gets the laugh the silence leaves room for.
+**One structured user test was run on 27 Nov, after the first grading** (DESIGN.md has the questions
+and every answer). Three viewers (a friend, my brother and my mom) watched the published film on
+Telegram and answered four questions. One question targeted the moment most likely to confuse people:
+why the girl picks up the sweeper after Grandma's goodbye.
+
+- **3 of 3** explained that moment correctly in their own words, and none was lost. In one word they
+  felt bittersweet, hilarious and heartwarming, which matches the intent of a warm laugh and a
+  grandmother's love.
+- **1 of 3** asked for the misunderstanding to be clearer *visually*. That is the gap the v7 storyboard
+  targets in s04–s05 (Grandma waves to the watching girl, then the girl reaches for the handle). v7 was
+  written from my own review before the test, and the tested film is v6.1, so the next step is to render
+  v7 and ask the same question again.
+- **Limits:** three viewers, all close to me, and nobody who relies on the English subtitles alone.
+  The radio-cut test planned before the deadline was not run.
 
 **Storyboard v7: keyframes made, film not yet re-rendered.** Grandma waves goodbye to the watching
 girl, the girl reaches for the handle, Grandma leads the walk and the road crossing, and s12 shows
